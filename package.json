@@ -12,7 +12,10 @@
   "author": "Matt Styles",
   "repository": "git://github.com/mattstyles/pixi-starfield.git",
   "license": "WTFPL",
-  "dependencies": {},
+  "dependencies": {
+    "fast-simplex-noise": "^1.0.0",
+    "heightmap": "^0.2.1"
+  },
   "devDependencies": {
     "@mattstyles/tick": "^0.1.0",
     "babel": "5.8.23",

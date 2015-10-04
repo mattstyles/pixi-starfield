@@ -20,10 +20,18 @@ function init() {
     starfield = new Starfield({
         tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture,
         alpha: {
-            min: .9,
+            min: .2,
             max: 1
         },
-        density: 10000
+        scale: {
+            min: .085,
+            max: .1
+        },
+        density: CONSTANTS.get( 'NUM_STARS' ),
+        size: {
+            width: CONSTANTS.get( 'CANVAS_WIDTH' ),
+            height: CONSTANTS.get( 'CANVAS_HEIGHT' )
+        }
     })
     window.stars = starfield
 

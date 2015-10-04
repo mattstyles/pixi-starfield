@@ -18,9 +18,9 @@ export function colourToValue( mag = [ .5, .5, .5 ], from = [ 0, 0, 0 ], to = [ 
 
     // Return the colour value from the given params
     return [
-        lerp( mag, from[ 0 ], to[ 0 ] ) << 16,
-        lerp( mag, from[ 1 ], to[ 1 ] ) << 8,
-        lerp( mag, from[ 2 ], to[ 2 ] )
+        lerp( mag[ 0 ], from[ 0 ], to[ 0 ] ) << 16,
+        lerp( mag[ 1 ], from[ 1 ], to[ 1 ] ) << 8,
+        lerp( mag[ 2 ], from[ 2 ], to[ 2 ] )
     ].reduce( ( prev, curr ) => {
         return prev | curr
     }, 0 )

@@ -5,7 +5,6 @@ import random from 'lodash.random'
 import { lerp } from 'mathutil'
 
 import stars from './stars'
-import star from './star'
 import { colourToValue } from './util/color'
 
 /**
@@ -26,7 +25,7 @@ export default class Starfield {
                 height: 500
             },
             density: 500,
-            tex: null
+            tex: null,
             scale: {
                 min: .5,
                 max: 1
@@ -70,7 +69,7 @@ export default class Starfield {
      * Creates a brand new star
      */
     createStar() {
-        let star = new Star( this.opts.tex )
+        let star = new Pixi.Sprite( this.opts.tex )
         this.stars.push( star )
 
         // New stars need a position, whack em in the starfield bounds
@@ -88,6 +87,8 @@ export default class Starfield {
     // @TODO refactor to star class or star factory class
     getStarDistance( star ) {
         let base = stars.getValue( star.position.x, star.position.y )
+        // This alters the curve from light to dark in the simplex noise, left
+        // as is and slightly too linear
         let temp = this.opts.tempCurve.get( base )
 
         // Clamp alpha using temp
@@ -101,5 +102,13 @@ export default class Starfield {
         star.tint = colourToValue( temp, this.opts.color.from, this.opts.color.to )
 
         return star
+    }
+
+    /**
+     * Update should manage stars leaving the bounds and using those leavers as
+     * those stars joining to maintain density whilst world coords move
+     */
+    update() {
+        //@TODO
     }
 }

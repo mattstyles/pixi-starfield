@@ -7,4 +7,26 @@ import CONSTANTS from '../constants'
 
 import Starfield from '../../lib'
 
-console.log( 'hello world' )
+let starfield = null
+let stage = new Pixi.Container()
+
+function render() {
+    console.log( 'rendering' )
+    renderer.render( stage )
+}
+
+function init() {
+    console.log( 'initialising' )
+    starfield = new Starfield({
+        tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture
+    })
+
+    stage.addChild( starfield.container )
+
+    render()
+}
+
+
+Pixi.loader
+    .add( CONSTANTS.get( 'STAR_TEX' ) )
+    .load( init )

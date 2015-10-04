@@ -73,7 +73,11 @@ export default class Starfield {
         this.stars.push( star )
 
         // New stars need a position, whack em in the starfield bounds
+        star = this.createRandomStarPosition( star, this.bounds )
 
+        star = this.getStarDistance( star )
+
+        return star
     }
 
     // @TODO refactor to star class
@@ -95,7 +99,7 @@ export default class Starfield {
         star.alpha = lerp( temp, this.opts.alpha.min, this.opts.alpha.max )
 
         // Linear randomise star size
-        let scale = lerp( random( 0, 1 ), this.opts.scale.min, this.opt.scale.max )
+        let scale = lerp( random( 0, 1 ), this.opts.scale.min, this.opts.scale.max )
         star.scale.set( scale, scale )
 
         // Tint from temp

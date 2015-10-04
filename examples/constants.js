@@ -7,7 +7,7 @@ const CONSTANTS = toMap({
 
     // .05% of screen density
     NUM_STARS: .0005 * window.innerWidth * window.innerHeight,
-    STAR_TEX: 'assets/circle32.png',
+    STAR_TEX: '../common/circle32.png',
 })
 
 export default CONSTANTS

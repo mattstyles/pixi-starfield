@@ -52,3 +52,5 @@ const stars = new HeightMap()
             frequency: 1 / Math.pow( 2, FREQ )
         })
     })
+
+export default stars

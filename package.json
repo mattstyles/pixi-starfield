@@ -13,8 +13,12 @@
   "repository": "git://github.com/mattstyles/pixi-starfield.git",
   "license": "WTFPL",
   "dependencies": {
+    "bezier-easing": "^1.1.1",
     "fast-simplex-noise": "^1.0.0",
-    "heightmap": "^0.2.1"
+    "heightmap": "^0.2.1",
+    "lodash.random": "^3.0.1",
+    "mathutil": "^0.1.0",
+    "pixi.js": "^3.0.7"
   },
   "devDependencies": {
     "@mattstyles/tick": "^0.1.0",

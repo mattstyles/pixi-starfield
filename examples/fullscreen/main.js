@@ -18,8 +18,14 @@ function render() {
 function init() {
     console.log( 'initialising' )
     starfield = new Starfield({
-        tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture
+        tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture,
+        alpha: {
+            min: .9,
+            max: 1
+        },
+        density: 10000
     })
+    window.stars = starfield
 
     stage.addChild( starfield.container )
 
@@ -30,3 +36,9 @@ function init() {
 Pixi.loader
     .add( CONSTANTS.get( 'STAR_TEX' ) )
     .load( init )
+
+
+window.stars = starfield
+window.stage = stage
+window.renderer = renderer
+window.Pixi = Pixi

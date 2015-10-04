@@ -20,7 +20,7 @@ export default class Starfield {
                 x: 0,
                 y: 0
             },
-            initialSize: {
+            size: {
                 width: 500,
                 height: 500
             },
@@ -42,19 +42,15 @@ export default class Starfield {
         }, opts )
 
         this.container = new Pixi.Container()
-        this.container.width = this.opts.initialSize.width
-        this.container.height = this.opts.initialSize.height
         this.pos = this.container.position
         this.pos.set( this.opts.initialPosition.x, this.opts.initialPosition.y )
 
-        let halfW = this.container.width / 2
-        let halfH = this.container.height / 2
-
+        // Bounds are double the active area, where pos dictates central location
         this.bounds = new Pixi.Rectangle(
-            this.pos.x - halfW,
-            this.pos.y - halfH,
-            this.pos.x + halfW,
-            this.pos.y + halfH
+            this.pos.x - this.opts.size.width,
+            this.pos.y - this.opts.size.height,
+            this.opts.size.width * 2,
+            this.opts.size.height * 2
         )
 
         this.stars = []
@@ -82,8 +78,8 @@ export default class Starfield {
 
     // @TODO refactor to star class
     createRandomStarPosition( star, rect ) {
-        let x = random( rect.x - rect.width, rect.x + rect.width )
-        let y = random( rect.y - rect.height, rect.y + rect.height )
+        let x = random( rect.x, rect.x + rect.width )
+        let y = random( rect.y, rect.y + rect.height )
         star.position.set( x, y )
         return star
     }

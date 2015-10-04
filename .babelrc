@@ -1,0 +1,11 @@
+{
+  "stage": 2,
+  "optional": [
+    "es7.classProperties",
+    "asyncToGenerator"
+  ],
+  "loose": [
+    "es6.modules",
+    "es6.classes"
+  ]
+}

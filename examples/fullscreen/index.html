@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PIXI-starfield</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .Show {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            z-index: 1000;
+            width: 200px;
+            background: rgba( 0, 0, 0, .2 );
+            color: white;
+            font-family: 'Coolville', 'Source Code Pro', 'Courier', monospace;
+            font-size: 20px;
+        }
+        .Show li {
+            width: 100%;
+            border-bottom: rgba( 255, 255, 255, .5 );
+        }
+
+        .Stats {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="Stats js-stats"></div>
+    <ul class="Show js-show"></ul>
+    <script src="./build.js"></script>
+</body>
+</html>

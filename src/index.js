@@ -154,6 +154,8 @@ export default class Starfield {
                 if ( Math.abs( diffY ) >= this.opts.size.height ) {
                     star.position.y = this.pos.y + diffY
                 }
+
+                star = this.getStarDistance( star )
             }
         })
     }

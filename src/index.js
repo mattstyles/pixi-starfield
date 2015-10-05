@@ -145,6 +145,20 @@ export default class Starfield {
         this.stars.forEach( star => {
             if ( !this.bounds.contains( star.position.x, star.position.y ) ) {
                 console.log( star )
+                //star = this.createRandomStarPosition( star, this.bounds )
+                let diffX = this.pos.x - star.position.x
+                let diffY = this.pos.y - star.position.y
+                console.log( 'x', this.opts.size.width, diffX )
+                console.log( 'y', this.opts.size.height, diffY )
+                if ( Math.abs( diffX ) >= this.opts.size.width ) {
+                    star.position.x = this.pos.x + diffX
+                    console.log( 'wide X, new pos X:', star.position.x )
+                }
+                if ( Math.abs( diffY ) >= this.opts.size.width ) {
+                    star.position.y = this.pos.y + diffY
+                    console.log( 'wide Y, new pos Y:', star.position.y )
+                }
+
                 star = this.createRandomStarPosition( star, this.bounds )
             }
         })

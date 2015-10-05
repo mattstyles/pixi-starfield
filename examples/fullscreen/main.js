@@ -65,10 +65,15 @@ function init() {
             from: [ 0x40, 0xff, 0x80 ],
             to: [ 0xff, 0xff, 0xff ]
         },
-        density: CONSTANTS.get( 'NUM_STARS' ),
+        // density: CONSTANTS.get( 'NUM_STARS' ),
+        density: 1,
+        // size: {
+        //     width: CONSTANTS.get( 'CANVAS_WIDTH' ),
+        //     height: CONSTANTS.get( 'CANVAS_HEIGHT' )
+        // }
         size: {
-            width: CONSTANTS.get( 'CANVAS_WIDTH' ),
-            height: CONSTANTS.get( 'CANVAS_HEIGHT' )
+            width: 500,
+            height: 500
         }
     })
 

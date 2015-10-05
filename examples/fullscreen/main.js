@@ -20,25 +20,25 @@ var quay = new Quay()
 var pos = window.pos = new Pixi.Point( 0, 0 )
 
 // Linearly move the starfield to test stuff
-quay.on( '<down>', event => {
+quay.on( '<up>', event => {
     starfield.setPosition( pos.x, pos.y-- )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x, pos.y-=6 )
     }
 })
-quay.on( '<up>', event => {
+quay.on( '<down>', event => {
     starfield.setPosition( pos.x, pos.y++ )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x, pos.y+=6 )
     }
 })
-quay.on( '<right>', event => {
+quay.on( '<left>', event => {
     starfield.setPosition( pos.x--, pos.y )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x-=6, pos.y )
     }
 })
-quay.on( '<left>', event => {
+quay.on( '<right>', event => {
     starfield.setPosition( pos.x++, pos.y )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x+=6, pos.y )

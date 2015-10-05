@@ -47,12 +47,7 @@ export default class Starfield {
         this.lastPos = new Pixi.Point( 0, 0 )
 
         // Bounds are double the active area, where pos dictates central location
-        this.bounds = new Pixi.Rectangle(
-            this.pos.x - this.opts.size.width,
-            this.pos.y - this.opts.size.height,
-            this.opts.size.width * 2,
-            this.opts.size.height * 2
-        )
+        this.bounds = this._getBounds()
 
         this.stars = []
 
@@ -69,8 +64,8 @@ export default class Starfield {
      */
     _getBounds() {
         return new Pixi.Rectangle(
-            this.pos.x - this.opts.size.width,
-            this.pos.y - this.opts.size.height,
+            this.pos.x - ( this.opts.size.width / 2 ),
+            this.pos.y - ( this.opts.size.height / 2 ),
             this.opts.size.width * 2,
             this.opts.size.height * 2
         )

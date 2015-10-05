@@ -42,7 +42,6 @@ export default class Starfield {
         }, opts )
 
         this.container = new Pixi.Container()
-        //this.container.pivot.set( this.opts.size.width / 2, this.opts.size.height / 2 )
         this.pos = new Pixi.Point( 0, 0 )
         this.lastPos = new Pixi.Point( 0, 0 )
         this.setPosition( this.opts.initialPosition.x, this.opts.initialPosition.y )
@@ -56,13 +55,12 @@ export default class Starfield {
         for ( let i = 0; i < this.opts.density; i++ ) {
             this.container.addChild( this.createStar() )
         }
-        this.stars[0].position.set( 0, 0 )
-        this.stars[0].scale.set( 2, 2 )
     }
 
     /**
      * Returns the new bounding box
      * The bounding box is currently hardcoded to twice the starfield
+     * minus 1 each dimension so that contains() works better
      * @returns <Pixi.Rectangle>
      */
     _getBounds() {
@@ -148,22 +146,14 @@ export default class Starfield {
     update() {
         this.stars.forEach( star => {
             if ( !this.bounds.contains( star.position.x, star.position.y ) ) {
-                console.log( star )
-                //star = this.createRandomStarPosition( star, this.bounds )
                 let diffX = this.pos.x - star.position.x
                 let diffY = this.pos.y - star.position.y
-                console.log( 'x', this.opts.size.width, diffX )
-                console.log( 'y', this.opts.size.height, diffY )
                 if ( Math.abs( diffX ) >= this.opts.size.width ) {
                     star.position.x = this.pos.x + diffX
-                    console.log( 'wide X, new pos X:', star.position.x )
                 }
                 if ( Math.abs( diffY ) >= this.opts.size.height ) {
                     star.position.y = this.pos.y + diffY
-                    console.log( 'wide Y, new pos Y:', star.position.y )
                 }
-
-                //star = this.createRandomStarPosition( star, this.bounds )
             }
         })
     }

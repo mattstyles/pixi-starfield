@@ -54,26 +54,17 @@ function init() {
     starfield = window.starfield = new Starfield({
         tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture,
         alpha: {
-            min: .7,
+            min: .2,
             max: 1
         },
         scale: {
-            min: .5,
-            max: 1
+            min: .085,
+            max: .1
         },
-        color: {
-            from: [ 0x40, 0xff, 0x80 ],
-            to: [ 0xff, 0xff, 0xff ]
-        },
-        // density: CONSTANTS.get( 'NUM_STARS' ),
-        density: 1,
-        // size: {
-        //     width: CONSTANTS.get( 'CANVAS_WIDTH' ),
-        //     height: CONSTANTS.get( 'CANVAS_HEIGHT' )
-        // }
+        density: CONSTANTS.get( 'NUM_STARS' ),
         size: {
-            width: 250,
-            height: 250
+            width: CONSTANTS.get( 'CANVAS_WIDTH' ),
+            height: CONSTANTS.get( 'CANVAS_HEIGHT' )
         }
     })
 

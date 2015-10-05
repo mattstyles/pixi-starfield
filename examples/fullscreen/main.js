@@ -1,17 +1,23 @@
 
 import Pixi from 'pixi.js'
+import Quay from 'quay'
+import Tick from '@mattstyles/tick'
 
 import '../canvas'
+import stats from '../stats'
 import renderer from '../renderer'
-import CONSTANTS from '../constants'
 
+import CONSTANTS from '../constants'
 import Starfield from '../../lib'
 
-let starfield = null
-let stage = new Pixi.Container()
+
+window.renderer = renderer
+window.Pixi = Pixi
+
+var starfield = window.starfield = null
+var stage = window.stage = new Pixi.Container()
 
 function render() {
-    console.log( 'rendering' )
     renderer.render( stage )
 }
 
@@ -33,20 +39,26 @@ function init() {
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )
         }
     })
-    window.stars = starfield
 
     stage.addChild( starfield.container )
 
     render()
 }
 
+let renderTick = new Tick()
+    .on( 'data', dt => {
+        stats.begin()
+        render()
+        stats.end()
+    })
+
+window.pause = function() {
+    renderTick.pause()
+}
+window.resume = function() {
+    renderTick.resume()
+}
 
 Pixi.loader
     .add( CONSTANTS.get( 'STAR_TEX' ) )
     .load( init )
-
-
-window.stars = starfield
-window.stage = stage
-window.renderer = renderer
-window.Pixi = Pixi

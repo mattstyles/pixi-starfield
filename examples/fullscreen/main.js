@@ -3,11 +3,11 @@ import Pixi from 'pixi.js'
 import Quay from 'quay'
 import Tick from '@mattstyles/tick'
 
-import '../canvas'
-import stats from '../stats'
-import renderer from '../renderer'
+import 'core/canvas'
+import stats from 'core/stats'
+import renderer from 'core/renderer'
 
-import CONSTANTS from '../constants'
+import CONSTANTS from 'core/constants'
 import Starfield from '../../lib'
 
 

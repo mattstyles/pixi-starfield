@@ -8,7 +8,7 @@
     "build": "babel src --out-dir lib",
     "watch": "babel src --out-dir lib --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "example": "browserify -t babelify --debug examples/fullscreen/main.js > examples/fullscreen/build.js",
+    "example": "NODE_PATH=examples browserify -t babelify --debug examples/fullscreen/main.js > examples/fullscreen/build.js",
     "preexample": "npm run build"
   },
   "author": "Matt Styles",

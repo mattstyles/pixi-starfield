@@ -17,7 +17,7 @@ window.Pixi = Pixi
 var starfield = window.starfield = null
 var stage = window.stage = new Pixi.Container()
 var quay = new Quay()
-var pos = new Pixi.Point( 0, 0 )
+var pos = window.pos = new Pixi.Point( 0, 0 )
 
 // Linearly move the starfield to test stuff
 quay.on( '<down>', event => {
@@ -51,15 +51,19 @@ function render() {
 
 function init() {
     console.log( 'initialising' )
-    starfield = new Starfield({
+    starfield = window.starfield = new Starfield({
         tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture,
         alpha: {
-            min: .2,
+            min: .7,
             max: 1
         },
         scale: {
-            min: .08,
-            max: .1
+            min: .5,
+            max: 1
+        },
+        color: {
+            from: [ 0x40, 0xff, 0x80 ],
+            to: [ 0xff, 0xff, 0xff ]
         },
         density: CONSTANTS.get( 'NUM_STARS' ),
         size: {
@@ -68,14 +72,18 @@ function init() {
         }
     })
 
+    pos.copy( starfield.pos )
+
     stage.addChild( starfield.container )
 
     render()
+    resume()
 }
 
 let renderTick = new Tick()
     .on( 'data', dt => {
         stats.begin()
+        starfield.update()
         render()
         stats.end()
     })
@@ -86,6 +94,8 @@ window.pause = function() {
 window.resume = function() {
     renderTick.resume()
 }
+
+pause()
 
 Pixi.loader
     .add( CONSTANTS.get( 'STAR_TEX' ) )

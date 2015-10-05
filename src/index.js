@@ -42,8 +42,9 @@ export default class Starfield {
         }, opts )
 
         this.container = new Pixi.Container()
+        this.container.pivot.set( this.opts.size.width / 2, this.opts.size.height / 2 )
         this.pos = this.container.position
-        this.pos.set( this.opts.initialPosition.x, this.opts.initialPosition.y )
+        this.pos.set( this.opts.initialPosition.x || this.opts.size.width / 2, this.opts.initialPosition.y || this.opts.size.height / 2 )
         this.lastPos = new Pixi.Point( 0, 0 )
 
         // Bounds are double the active area, where pos dictates central location
@@ -64,8 +65,8 @@ export default class Starfield {
      */
     _getBounds() {
         return new Pixi.Rectangle(
-            this.pos.x - ( this.opts.size.width / 2 ),
-            this.pos.y - ( this.opts.size.height / 2 ),
+            this.pos.x - this.opts.size.width,
+            this.pos.y - this.opts.size.height,
             this.opts.size.width * 2,
             this.opts.size.height * 2
         )
@@ -73,7 +74,6 @@ export default class Starfield {
 
     /**
      * Sets the position, updates the bounds and caches the old position
-     * The container does not move, but the stars rendered within it do
      * @param x <Integer>
      * @param y <Integer>
      */
@@ -142,6 +142,11 @@ export default class Starfield {
      * those stars joining to maintain density whilst world coords move
      */
     update() {
-        //@TODO
+        this.stars.forEach( star => {
+            if ( !this.bounds.contains( star.position.x, star.position.y ) ) {
+                console.log( star )
+                star = this.createRandomStarPosition( star, this.bounds )
+            }
+        })
     }
 }

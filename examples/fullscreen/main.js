@@ -16,6 +16,34 @@ window.Pixi = Pixi
 
 var starfield = window.starfield = null
 var stage = window.stage = new Pixi.Container()
+var quay = new Quay()
+var pos = new Pixi.Point( 0, 0 )
+
+// Linearly move the starfield to test stuff
+quay.on( '<up>', event => {
+    starfield.setPosition( pos.x, pos.y-- )
+    if ( quay.pressed.has( '<shift>' ) ) {
+        starfield.setPosition( pos.x, pos.y-=6 )
+    }
+})
+quay.on( '<down>', event => {
+    starfield.setPosition( pos.x, pos.y++ )
+    if ( quay.pressed.has( '<shift>' ) ) {
+        starfield.setPosition( pos.x, pos.y+=6 )
+    }
+})
+quay.on( '<left>', event => {
+    starfield.setPosition( pos.x--, pos.y )
+    if ( quay.pressed.has( '<shift>' ) ) {
+        starfield.setPosition( pos.x-=6, pos.y )
+    }
+})
+quay.on( '<right>', event => {
+    starfield.setPosition( pos.x++, pos.y )
+    if ( quay.pressed.has( '<shift>' ) ) {
+        starfield.setPosition( pos.x+=6, pos.y )
+    }
+})
 
 function render() {
     renderer.render( stage )

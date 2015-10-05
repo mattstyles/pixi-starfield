@@ -42,10 +42,10 @@ export default class Starfield {
         }, opts )
 
         this.container = new Pixi.Container()
-        this.container.pivot.set( this.opts.size.width / 2, this.opts.size.height / 2 )
-        this.pos = this.container.position
-        this.pos.set( this.opts.initialPosition.x || this.opts.size.width / 2, this.opts.initialPosition.y || this.opts.size.height / 2 )
+        //this.container.pivot.set( this.opts.size.width / 2, this.opts.size.height / 2 )
+        this.pos = new Pixi.Point( 0, 0 )
         this.lastPos = new Pixi.Point( 0, 0 )
+        this.setPosition( this.opts.initialPosition.x, this.opts.initialPosition.y )
 
         // Bounds are double the active area, where pos dictates central location
         this.bounds = this._getBounds()
@@ -56,6 +56,8 @@ export default class Starfield {
         for ( let i = 0; i < this.opts.density; i++ ) {
             this.container.addChild( this.createStar() )
         }
+        this.stars[0].position.set( 0, 0 )
+        this.stars[0].scale.set( 2, 2 )
     }
 
     /**
@@ -65,10 +67,10 @@ export default class Starfield {
      */
     _getBounds() {
         return new Pixi.Rectangle(
-            this.pos.x - this.opts.size.width,
-            this.pos.y - this.opts.size.height,
-            this.opts.size.width * 2,
-            this.opts.size.height * 2
+            this.pos.x - this.opts.size.width + 1,
+            this.pos.y - this.opts.size.height + 1,
+            -1 + this.opts.size.width * 2,
+            -1 + this.opts.size.height * 2
         )
     }
 
@@ -80,6 +82,7 @@ export default class Starfield {
     setPosition( x, y ) {
         this.lastPos.copy( this.pos )
         this.pos.set( x, y )
+        this.container.position.set( -this.pos.x + this.opts.size.width, -this.pos.y + this.opts.size.height )
         this.bounds = this._getBounds()
     }
 
@@ -99,6 +102,7 @@ export default class Starfield {
      */
     createStar() {
         let star = new Pixi.Sprite( this.opts.tex )
+        star.anchor.set( .5, .5 )
         this.stars.push( star )
 
         // New stars need a position, whack em in the starfield bounds
@@ -154,12 +158,12 @@ export default class Starfield {
                     star.position.x = this.pos.x + diffX
                     console.log( 'wide X, new pos X:', star.position.x )
                 }
-                if ( Math.abs( diffY ) >= this.opts.size.width ) {
+                if ( Math.abs( diffY ) >= this.opts.size.height ) {
                     star.position.y = this.pos.y + diffY
                     console.log( 'wide Y, new pos Y:', star.position.y )
                 }
 
-                star = this.createRandomStarPosition( star, this.bounds )
+                //star = this.createRandomStarPosition( star, this.bounds )
             }
         })
     }

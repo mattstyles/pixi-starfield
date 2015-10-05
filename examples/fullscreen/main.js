@@ -72,12 +72,10 @@ function init() {
         //     height: CONSTANTS.get( 'CANVAS_HEIGHT' )
         // }
         size: {
-            width: 500,
-            height: 500
+            width: 250,
+            height: 250
         }
     })
-
-    pos.copy( starfield.pos )
 
     stage.addChild( starfield.container )
 

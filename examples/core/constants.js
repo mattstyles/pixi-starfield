@@ -1,8 +1,10 @@
 import toMap from './toMap'
 
 const CONSTANTS = toMap({
-    CANVAS_WIDTH: window.innerWidth,
-    CANVAS_HEIGHT: window.innerHeight,
+    // CANVAS_WIDTH: window.innerWidth,
+    // CANVAS_HEIGHT: window.innerHeight,
+    CANVAS_WIDTH: 500,
+    CANVAS_HEIGHT: 500,
     CANVAS_DP: window.devicePixelRatio,
 
     // .05% of screen density

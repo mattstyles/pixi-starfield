@@ -44,6 +44,7 @@ export default class Starfield {
         this.container = new Pixi.Container()
         this.pos = this.container.position
         this.pos.set( this.opts.initialPosition.x, this.opts.initialPosition.y )
+        this.lastPos = new Pixi.Point( 0, 0 )
 
         // Bounds are double the active area, where pos dictates central location
         this.bounds = new Pixi.Rectangle(
@@ -59,6 +60,43 @@ export default class Starfield {
         for ( let i = 0; i < this.opts.density; i++ ) {
             this.container.addChild( this.createStar() )
         }
+    }
+
+    /**
+     * Returns the new bounding box
+     * The bounding box is currently hardcoded to twice the starfield
+     * @returns <Pixi.Rectangle>
+     */
+    _getBounds() {
+        return new Pixi.Rectangle(
+            this.pos.x - this.opts.size.width,
+            this.pos.y - this.opts.size.height,
+            this.opts.size.width * 2,
+            this.opts.size.height * 2
+        )
+    }
+
+    /**
+     * Sets the position, updates the bounds and caches the old position
+     * The container does not move, but the stars rendered within it do
+     * @param x <Integer>
+     * @param y <Integer>
+     */
+    setPosition( x, y ) {
+        this.lastPos.copy( this.pos )
+        this.pos.set( x, y )
+        this.bounds = this._getBounds()
+    }
+
+    /**
+     * Determines the height/width of the renderable area
+     * @param width <Integer>
+     * @param height <Integer>
+     */
+    setSize( width, height ) {
+        this.opts.size.width = width
+        this.opts.size.height = height
+        this.bounds = this._getBounds()
     }
 
     /**

@@ -23,6 +23,7 @@ export default class Star {
 
         this.sprite = new Pixi.Sprite( this.schema.tex )
         this.sprite.anchor.set( .5, .5 )
+        this.sprite.blendMode = this.schema.blendMode
 
         this.position = this.sprite.position
 

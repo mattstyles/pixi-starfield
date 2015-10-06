@@ -39,7 +39,8 @@ export default class Starfield {
                 from: [ 0xc0, 0xc0, 0xc8 ],
                 to: [ 0xf0, 0xf2, 0xff ]
             },
-            tempCurve: new Bezier( .75, .1, .9, .5 )
+            tempCurve: new Bezier( .75, .1, .9, .5 ),
+            blendMode: Pixi.BLEND_MODES.NORMAL
         }, opts.schema || {} )
 
         this.container = new Pixi.Container()
@@ -81,7 +82,7 @@ export default class Starfield {
     setPosition( x, y ) {
         this.lastPos.copy( this.pos )
         this.pos.set( x, y )
-        this.container.position.set( -this.pos.x + this.opts.size.width, -this.pos.y + this.opts.size.height )
+        this.container.position.set( -this.pos.x + this.opts.size.width / 2, -this.pos.y + this.opts.size.height / 2 )
         this.bounds = this._getBounds()
     }
 

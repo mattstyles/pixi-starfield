@@ -29,11 +29,26 @@ export default class Star {
         return this
     }
 
+    getPosition() {
+        return [ this.sprite.position.x, this.sprite.position.y ]
+    }
+
+    setPosition( x, y ) {
+        if ( x === this.sprite.position.x && y === this.sprite.position.y ) {
+            return
+        }
+
+        this.sprite.position.set( x, y )
+        this.setBrightness()
+
+        return this
+    }
+
     setRandomPosition( bounds ) {
         let x = random( bounds.x, bounds.x + bounds.width )
         let y = random( bounds.y, bounds.y + bounds.height )
 
-        this.sprite.position.set( x, y )
+        this.setPosition( x, y )
 
         return this
     }
@@ -43,7 +58,6 @@ export default class Star {
         let temp = this.schema.tempCurve.get( base )
 
         this.sprite.alpha = lerp( temp, this.schema.alpha.min, this.schema.alpha.max )
-        console.log( this.sprite.alpha )
 
         // Just randomise size between max and min
         let scale = random( this.schema.scale.min, this.schema.scale.max )

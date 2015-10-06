@@ -100,48 +100,10 @@ export default class Starfield {
      * Creates a brand new star
      */
     createStar() {
-        // let star = new Pixi.Sprite( this.opts.tex )
-        // star.anchor.set( .5, .5 )
-        // this.stars.push( star )
-
-        // New stars need a position, whack em in the starfield bounds
-        // star = this.createRandomStarPosition( star, this.bounds )
-        //
-        // star = this.getStarDistance( star )
-
         let star = new Star( this.opts.schema )
         star.setRandomPosition( this.bounds )
-        star.setBrightness()
 
         this.stars.push( star )
-
-        return star
-    }
-
-    // @TODO refactor to star class
-    createRandomStarPosition( star, rect ) {
-        let x = random( rect.x, rect.x + rect.width )
-        let y = random( rect.y, rect.y + rect.height )
-        star.position.set( x, y )
-        return star
-    }
-
-    // @TODO refactor to star class or star factory class
-    getStarDistance( star ) {
-        let base = starmap.getValue( star.position.x, star.position.y )
-        // This alters the curve from light to dark in the simplex noise, left
-        // as is and slightly too linear
-        let temp = this.opts.tempCurve.get( base )
-
-        // Clamp alpha using temp
-        star.alpha = lerp( temp, this.opts.alpha.min, this.opts.alpha.max )
-
-        // Linear randomise star size
-        let scale = lerp( random( 0, 1 ), this.opts.scale.min, this.opts.scale.max )
-        star.scale.set( scale, scale )
-
-        // Tint from temp
-        star.tint = colourToValue( temp, this.opts.color.from, this.opts.color.to )
 
         return star
     }
@@ -152,19 +114,16 @@ export default class Starfield {
      */
     update() {
         this.stars.forEach( star => {
-            if ( !this.bounds.contains( star.position.x, star.position.y ) ) {
-                let diffX = this.pos.x - star.position.x
-                let diffY = this.pos.y - star.position.y
+            let starpos = star.getPosition()
+            if ( !this.bounds.contains( ...starpos ) ) {
+                let diffX = this.pos.x - starpos[ 0 ]
+                let diffY = this.pos.y - starpos[ 1 ]
 
-                if ( Math.abs( diffX ) >= this.opts.size.width ) {
-                    star.position.x = this.pos.x + diffX
-                }
-                if ( Math.abs( diffY ) >= this.opts.size.height ) {
-                    star.position.y = this.pos.y + diffY
-                }
-
-                //star = this.getStarDistance( star )
-                star.setBrightness()
+                // Set position if the difference is outside the bounds
+                star.setPosition(
+                    Math.abs( diffX ) >= this.opts.size.width ? this.pos.x + diffX : starpos[ 0 ],
+                    Math.abs( diffY ) >= this.opts.size.height ? this.pos.y + diffY : starpos[ 1 ]
+                )
             }
         })
     }

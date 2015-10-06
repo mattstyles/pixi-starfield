@@ -51,14 +51,28 @@
         }
 
         .Stats {
+            float: left;
+        }
+        .Stats-container {
             position: absolute;
             top: 2px;
             right: 2px;
             z-index: 1000;
         }
+
+        /* Micro clearfix, courtesy of [Nicolas Gallagher](http://nicolasgallagher.com/micro-clearfix-hack/) */
+        .u-cf:before,
+        .u-cf:after {
+            content: " "; /* 1 */
+            display: table; /* 2 */
+        }
+        .u-cf:after {
+            clear: both;
+        }
     </style>
 </head>
 <body>
+    <div class="Stats-container js-Stats-container u-cf"></div>
     <ul class="Show js-show"></ul>
     <script src="./build.js"></script>
 </body>

@@ -4,7 +4,7 @@ import Quay from 'quay'
 import Tick from '@mattstyles/tick'
 
 import 'core/canvas'
-import stats from 'core/stats'
+import { stats, memstats } from 'core/stats'
 import renderer from 'core/renderer'
 
 import CONSTANTS from 'core/constants'
@@ -77,8 +77,12 @@ function init() {
 let renderTick = new Tick()
     .on( 'data', dt => {
         stats.begin()
+        memstats.begin()
+
         starfield.update()
         render()
+
+        memstats.end()
         stats.end()
     })
 

@@ -30,10 +30,24 @@ export default class Star {
         return this
     }
 
+    /**
+     * Returns the sprite position as an array, useful for spreading
+     * @returns <Array:Number>
+     */
     getPosition() {
         return [ this.sprite.position.x, this.sprite.position.y ]
     }
 
+    /**
+     * Sets the position if an update is required
+     * A positional move really means this becomes a new star as the star position
+     * is tied to heightmap data. To move a star on screen the starfield moves.
+     * This means that as the position changes the star should calculate its brightness
+     * again.
+     * @param x <Number> x coord on heightmap
+     * @param y <Number> y coord on heightmap
+     * @returns this
+     */
     setPosition( x, y ) {
         if ( x === this.sprite.position.x && y === this.sprite.position.y ) {
             return
@@ -45,6 +59,11 @@ export default class Star {
         return this
     }
 
+    /**
+     * Sets a random position within the bounding rectangle
+     * @param bounds <Pixi.Rectangle> x, y, width, height
+     * @returns this
+     */
     setRandomPosition( bounds ) {
         let x = random( bounds.x, bounds.x + bounds.width )
         let y = random( bounds.y, bounds.y + bounds.height )
@@ -54,6 +73,11 @@ export default class Star {
         return this
     }
 
+    /**
+     * Uses the underlying heightmap data corresponding to star position to set
+     * various rendering properties of the star
+     * @returns this
+     */
     setBrightness() {
         let base = starmap.getValue( this.sprite.position.x, this.sprite.position.y )
         let temp = this.schema.tempCurve.get( base )

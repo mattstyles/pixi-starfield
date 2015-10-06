@@ -1,11 +1,7 @@
 
 import Pixi from 'pixi.js'
 import Bezier from 'bezier-easing'
-import random from 'lodash.random'
-import { lerp } from 'mathutil'
 
-import starmap from './starmap'
-import { colourToValue } from './util/color'
 import Star from './star'
 
 
@@ -99,6 +95,7 @@ export default class Starfield {
 
     /**
      * Creates a brand new star
+     * @returns <Star>
      */
     createStar() {
         let star = new Star( this.opts.schema )

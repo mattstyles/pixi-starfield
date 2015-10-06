@@ -16,10 +16,6 @@ import { colourToValue } from './util/color'
 export default class Starfield {
     constructor( opts ) {
         this.opts = Object.assign({
-            initialPosition: {
-                x: 0,
-                y: 0
-            },
             size: {
                 width: 500,
                 height: 500
@@ -44,7 +40,7 @@ export default class Starfield {
         this.container = new Pixi.Container()
         this.pos = new Pixi.Point( 0, 0 )
         this.lastPos = new Pixi.Point( 0, 0 )
-        this.setPosition( this.opts.initialPosition.x, this.opts.initialPosition.y )
+        this.setPosition( 0, 0 )
 
         // Bounds are double the active area, where pos dictates central location
         this.bounds = this._getBounds()
@@ -67,8 +63,8 @@ export default class Starfield {
         return new Pixi.Rectangle(
             this.pos.x - this.opts.size.width + 1,
             this.pos.y - this.opts.size.height + 1,
-            -1 + this.opts.size.width * 2,
-            -1 + this.opts.size.height * 2
+            -2 + this.opts.size.width * 2,
+            -2 + this.opts.size.height * 2
         )
     }
 

@@ -58,8 +58,8 @@ function init() {
             max: 1
         },
         scale: {
-            min: .085,
-            max: .1
+            min: .1,
+            max: .2
         },
         density: CONSTANTS.get( 'NUM_STARS' ),
         size: {
@@ -94,3 +94,7 @@ pause()
 Pixi.loader
     .add( CONSTANTS.get( 'STAR_TEX' ) )
     .load( init )
+
+
+import { colourToValue } from '../../lib/util/color'
+window.color = colourToValue

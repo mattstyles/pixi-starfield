@@ -1,4 +1,4 @@
-#
+# 0.2.0
 
 * _add_ set sprite blend mode
 * _update_ refactor into star class
@@ -9,3 +9,4 @@
 * _add_ render starfield
 * _add_ set starfield position
 * _add_ update stars
+* _add_ example

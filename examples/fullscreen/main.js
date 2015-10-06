@@ -2,6 +2,7 @@
 import Pixi from 'pixi.js'
 import Quay from 'quay'
 import Tick from '@mattstyles/tick'
+import Bezier from 'bezier-easing'
 
 import 'core/canvas'
 import { stats, memstats } from 'core/stats'
@@ -10,6 +11,7 @@ import renderer from 'core/renderer'
 import CONSTANTS from 'core/constants'
 import Starfield from '../../lib'
 
+const MOVESPEED = 10
 
 window.renderer = renderer
 window.Pixi = Pixi
@@ -23,25 +25,25 @@ var pos = window.pos = new Pixi.Point( 0, 0 )
 quay.on( '<up>', event => {
     starfield.setPosition( pos.x, pos.y-- )
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x, pos.y-=6 )
+        starfield.setPosition( pos.x, pos.y-=MOVESPEED )
     }
 })
 quay.on( '<down>', event => {
     starfield.setPosition( pos.x, pos.y++ )
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x, pos.y+=6 )
+        starfield.setPosition( pos.x, pos.y+=MOVESPEED )
     }
 })
 quay.on( '<left>', event => {
     starfield.setPosition( pos.x--, pos.y )
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x-=6, pos.y )
+        starfield.setPosition( pos.x-=MOVESPEED, pos.y )
     }
 })
 quay.on( '<right>', event => {
     starfield.setPosition( pos.x++, pos.y )
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x+=6, pos.y )
+        starfield.setPosition( pos.x+=MOVESPEED, pos.y )
     }
 })
 
@@ -58,8 +60,8 @@ function init() {
             max: 1
         },
         scale: {
-            min: .1,
-            max: .2
+            min: .085,
+            max: .125
         },
         density: CONSTANTS.get( 'NUM_STARS' ),
         size: {

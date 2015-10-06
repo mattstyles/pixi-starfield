@@ -142,6 +142,8 @@ export default class Starfield {
     update() {
         this.stars.forEach( star => {
             if ( !this.bounds.contains( star.position.x, star.position.y ) ) {
+                // @TODO this diffing can create banding on diagonals, not a major
+                // concern for sparse starfields (as most will be)
                 let diffX = this.pos.x - star.position.x
                 let diffY = this.pos.y - star.position.y
                 if ( Math.abs( diffX ) >= this.opts.size.width ) {

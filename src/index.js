@@ -4,8 +4,10 @@ import Bezier from 'bezier-easing'
 import random from 'lodash.random'
 import { lerp } from 'mathutil'
 
-import stars from './stars'
+import starmap from './starmap'
 import { colourToValue } from './util/color'
+import Star from './star'
+
 
 /**
  * Starfield
@@ -14,13 +16,16 @@ import { colourToValue } from './util/color'
  * Generates a starfield and manages those stars
  */
 export default class Starfield {
-    constructor( opts ) {
+    constructor( opts = {} ) {
         this.opts = Object.assign({
             size: {
                 width: 500,
                 height: 500
             },
-            density: 500,
+            density: 500
+        }, opts )
+
+        this.opts.schema = Object.assign({
             tex: null,
             scale: {
                 min: .5,
@@ -35,7 +40,7 @@ export default class Starfield {
                 to: [ 0xf0, 0xf2, 0xff ]
             },
             tempCurve: new Bezier( .75, .1, .9, .5 )
-        }, opts )
+        }, opts.schema || {} )
 
         this.container = new Pixi.Container()
         this.pos = new Pixi.Point( 0, 0 )
@@ -49,7 +54,7 @@ export default class Starfield {
 
         // Generate initial stars
         for ( let i = 0; i < this.opts.density; i++ ) {
-            this.container.addChild( this.createStar() )
+            this.container.addChild( this.createStar().sprite )
         }
     }
 
@@ -95,14 +100,20 @@ export default class Starfield {
      * Creates a brand new star
      */
     createStar() {
-        let star = new Pixi.Sprite( this.opts.tex )
-        star.anchor.set( .5, .5 )
-        this.stars.push( star )
+        // let star = new Pixi.Sprite( this.opts.tex )
+        // star.anchor.set( .5, .5 )
+        // this.stars.push( star )
 
         // New stars need a position, whack em in the starfield bounds
-        star = this.createRandomStarPosition( star, this.bounds )
+        // star = this.createRandomStarPosition( star, this.bounds )
+        //
+        // star = this.getStarDistance( star )
 
-        star = this.getStarDistance( star )
+        let star = new Star( this.opts.schema )
+        star.setRandomPosition( this.bounds )
+        star.setBrightness()
+
+        this.stars.push( star )
 
         return star
     }
@@ -117,7 +128,7 @@ export default class Starfield {
 
     // @TODO refactor to star class or star factory class
     getStarDistance( star ) {
-        let base = stars.getValue( star.position.x, star.position.y )
+        let base = starmap.getValue( star.position.x, star.position.y )
         // This alters the curve from light to dark in the simplex noise, left
         // as is and slightly too linear
         let temp = this.opts.tempCurve.get( base )
@@ -142,10 +153,9 @@ export default class Starfield {
     update() {
         this.stars.forEach( star => {
             if ( !this.bounds.contains( star.position.x, star.position.y ) ) {
-                // @TODO this diffing can create banding on diagonals, not a major
-                // concern for sparse starfields (as most will be)
                 let diffX = this.pos.x - star.position.x
                 let diffY = this.pos.y - star.position.y
+
                 if ( Math.abs( diffX ) >= this.opts.size.width ) {
                     star.position.x = this.pos.x + diffX
                 }
@@ -153,7 +163,8 @@ export default class Starfield {
                     star.position.y = this.pos.y + diffY
                 }
 
-                star = this.getStarDistance( star )
+                //star = this.getStarDistance( star )
+                star.setBrightness()
             }
         })
     }

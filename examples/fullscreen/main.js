@@ -11,7 +11,7 @@ import renderer from 'core/renderer'
 import CONSTANTS from 'core/constants'
 import Starfield from '../../lib'
 
-const MOVESPEED = 10
+const MOVESPEED = 6
 
 window.renderer = renderer
 window.Pixi = Pixi
@@ -54,14 +54,21 @@ function render() {
 function init() {
     console.log( 'initialising' )
     starfield = window.starfield = new Starfield({
-        tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture,
-        alpha: {
-            min: .2,
-            max: 1
-        },
-        scale: {
-            min: .085,
-            max: .125
+        schema: {
+            tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture,
+            alpha: {
+                min: .8,
+                max: 1
+            },
+            scale: {
+                min: 1.085,
+                max: 1.125
+            },
+            color: {
+                from: [ 0xc0, 0xc0, 0xc0 ],
+                to: [ 0xf0, 0xff, 0xff ]
+            },
+            tempCurve: new Bezier( .75, .1, .85, 1 )
         },
         density: CONSTANTS.get( 'NUM_STARS' ),
         size: {

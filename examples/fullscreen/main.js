@@ -57,12 +57,12 @@ function init() {
         schema: {
             tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture,
             alpha: {
-                min: .5,
+                min: .2,
                 max: 1
             },
             scale: {
-                min: 0.585,
-                max: 1.625
+                min: .085,
+                max: .125
             },
             color: {
                 from: [ 0xc0, 0xc0, 0xc0 ],

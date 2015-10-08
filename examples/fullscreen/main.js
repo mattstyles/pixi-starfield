@@ -21,7 +21,7 @@ var stage = window.stage = new Pixi.Container()
 var quay = new Quay()
 var pos = window.pos = new Pixi.Point( 0, 0 )
 
-var dot = new Pixi.filters.DotScreenFilter()
+//var dot = new Pixi.filters.DotScreenFilter()
 var bloom = window.bloom = new Pixi.filters.BloomFilter()
 // var blur = window.blur = new Pixi.filters.BlurFilter()
 // blur.blurX = 20
@@ -67,13 +67,14 @@ function init() {
                 max: 1
             },
             scale: {
-                min: .1,
-                max: .75
+                min: .7,
+                max: .9
             },
             color: {
                 from: [ 0xc0, 0xc0, 0xc0 ],
                 to: [ 0xf0, 0xff, 0xff ]
             },
+            rotation: true,
             tempCurve: new Bezier( .75, .1, .85, 1 )
         },
         density: CONSTANTS.get( 'NUM_STARS' ),

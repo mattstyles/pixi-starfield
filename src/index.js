@@ -32,6 +32,7 @@ export default class Starfield {
                 min: .1,
                 max: 1
             },
+            rotation: false,
             tempCurve: new Bezier( .75, .1, .9, .5 ),
             blendMode: Pixi.BLEND_MODES.NORMAL
         }, opts.schema || {} )
@@ -71,13 +72,14 @@ export default class Starfield {
      * not every starfield requires tinting! Speedy speedy
      * In reality the difference isnt so great, the update loop logic takes most
      * of the time, not the rendering, but, if you really need a boost, you can.
+     * @TODO remove reliance on `this`, make pure
      */
     _createParticleContainer( density ) {
         return new Pixi.ParticleContainer( density, {
             scale: true,
             alpha: true,
             position: true,
-            rotation: false,
+            rotation: this.opts.schema.rotation,
             uvs: false
         })
     }

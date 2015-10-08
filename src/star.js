@@ -2,7 +2,7 @@
 import Pixi from 'pixi.js'
 import Bezier from 'bezier-easing'
 import random from 'lodash.random'
-import { lerp } from 'mathutil'
+import { lerp, toRadians } from 'mathutil'
 
 import starmap from './starmap'
 import { colourToValue } from './util/color'
@@ -85,8 +85,15 @@ export default class Star {
         this.sprite.alpha = lerp( temp, this.schema.alpha.min, this.schema.alpha.max )
 
         // Just randomise size between max and min
+        // @TODO dont use standard random, grab a new separate heightmap
         let scale = random( this.schema.scale.min, this.schema.scale.max )
         this.sprite.scale.set( scale, scale )
+
+        // @TODO rotation, and probably scale, could do with a separate heightmap to add
+        // some variety to different clusters of stars
+        if ( this.schema.rotation ) {
+            this.sprite.rotation = toRadians( lerp( temp, 0, 360 ) )
+        }
 
         if ( this.schema.color ) {
             this.sprite.tint = colourToValue( temp, this.schema.color.from, this.schema.color.to )

@@ -61,18 +61,22 @@ function init() {
     console.log( 'initialising' )
     starfield = window.starfield = new Starfield({
         schema: {
-            tex: Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX' ) ].texture,
+            tex: [
+                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX1' ) ].texture,
+                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX2' ) ].texture,
+                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX3' ) ].texture
+            ],
             alpha: {
-                min: .2,
-                max: 1
+                min: 0,
+                max: .5
             },
             scale: {
-                min: .7,
+                min: .2,
                 max: .9
             },
             color: {
-                from: [ 0xc0, 0xc0, 0xc0 ],
-                to: [ 0xf0, 0xff, 0xff ]
+                from: [ 0xc0, 0x80, 0x80 ],
+                to: [ 0xf0, 0x4f, 0x4f ]
             },
             rotation: true,
             tempCurve: new Bezier( .75, .1, .85, 1 )
@@ -113,5 +117,7 @@ window.resume = function() {
 pause()
 
 Pixi.loader
-    .add( CONSTANTS.get( 'STAR_TEX' ) )
+    .add( CONSTANTS.get( 'STAR_TEX1' ) )
+    .add( CONSTANTS.get( 'STAR_TEX2' ) )
+    .add( CONSTANTS.get( 'STAR_TEX3' ) )
     .load( init )

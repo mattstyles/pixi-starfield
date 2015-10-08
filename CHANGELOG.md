@@ -2,6 +2,8 @@
 
 * _add_ particle container when tinting is unnecessary
 * _add_ support filters
+* _add_ star rotation
+* _add_ multiple textures
 
 # 0.2.0
 

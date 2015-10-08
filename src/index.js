@@ -34,7 +34,8 @@ export default class Starfield {
             },
             rotation: false,
             tempCurve: new Bezier( .75, .1, .9, .5 ),
-            blendMode: Pixi.BLEND_MODES.NORMAL
+            blendMode: Pixi.BLEND_MODES.NORMAL,
+            threshold: 0
         }, opts.schema || {} )
 
         // If colour values are required then use a regular ole container,

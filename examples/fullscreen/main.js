@@ -86,7 +86,8 @@ function init() {
             width: CONSTANTS.get( 'CANVAS_WIDTH' ),
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )
         },
-        filters: [ bloom ]
+        filters: [ bloom ],
+        threshold: .3
     })
 
     stage.addChild( starfield.container )

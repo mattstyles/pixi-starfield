@@ -22,8 +22,8 @@ export default class Star {
         this.schema = schema
 
         this.sprite = new Pixi.Sprite( this.schema.tex )
-        this.sprite.anchor.set( .5, .5 )
-        this.sprite.blendMode = this.schema.blendMode
+        // this.sprite.anchor.set( .5, .5 )
+        // this.sprite.blendMode = this.schema.blendMode
 
         this.position = this.sprite.position
 
@@ -88,7 +88,9 @@ export default class Star {
         let scale = random( this.schema.scale.min, this.schema.scale.max )
         this.sprite.scale.set( scale, scale )
 
-        this.sprite.tint = colourToValue( temp, this.schema.color.from, this.schema.color.to )
+        if ( this.schema.color ) {
+            this.sprite.tint = colourToValue( temp, this.schema.color.from, this.schema.color.to )
+        }
 
         return this
     }

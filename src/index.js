@@ -31,15 +31,16 @@ export default class Starfield {
                 min: .1,
                 max: 1
             },
-            color: {
-                from: [ 0xc0, 0xc0, 0xc8 ],
-                to: [ 0xf0, 0xf2, 0xff ]
-            },
             tempCurve: new Bezier( .75, .1, .9, .5 ),
             blendMode: Pixi.BLEND_MODES.NORMAL
         }, opts.schema || {} )
 
-        this.container = new Pixi.Container()
+        // If colour values are required then use a regular ole container,
+        // otherwise hit the turbo boost
+        this.container = opts.schema && opts.schema.color
+            ? new Pixi.Container()
+            : this._createParticleContainer( this.opts.density )
+
         this.pos = new Pixi.Point( 0, 0 )
         this.lastPos = new Pixi.Point( 0, 0 )
         this.setPosition( 0, 0 )
@@ -53,6 +54,23 @@ export default class Starfield {
         for ( let i = 0; i < this.opts.density; i++ ) {
             this.container.addChild( this.createStar().sprite )
         }
+    }
+
+    /**
+     * Creates a particle container
+     * Particle container are quicker but dont support sprite tinting, however,
+     * not every starfield requires tinting! Speedy speedy
+     * In reality the difference isnt so great, the update loop logic takes most
+     * of the time, not the rendering, but, if you really need a boost, you can.
+     */
+    _createParticleContainer( density ) {
+        return new Pixi.ParticleContainer( density, {
+            scale: true,
+            alpha: true,
+            position: true,
+            rotation: false,
+            uvs: false
+        })
     }
 
     /**

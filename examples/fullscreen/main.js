@@ -21,6 +21,11 @@ var stage = window.stage = new Pixi.Container()
 var quay = new Quay()
 var pos = window.pos = new Pixi.Point( 0, 0 )
 
+// var bloom = window.bloom = new Pixi.filters.BloomFilter()
+// var blur = window.blur = new Pixi.filters.BlurFilter()
+// blur.blurX = 20
+// stage.filters = [ blur ]
+
 // Linearly move the starfield to test stuff
 quay.on( '<up>', event => {
     starfield.setPosition( pos.x, pos.y-- )
@@ -107,7 +112,3 @@ pause()
 Pixi.loader
     .add( CONSTANTS.get( 'STAR_TEX' ) )
     .load( init )
-
-
-import { colourToValue } from '../../lib/util/color'
-window.color = colourToValue

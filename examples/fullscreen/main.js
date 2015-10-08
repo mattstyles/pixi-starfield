@@ -21,10 +21,11 @@ var stage = window.stage = new Pixi.Container()
 var quay = new Quay()
 var pos = window.pos = new Pixi.Point( 0, 0 )
 
-// var bloom = window.bloom = new Pixi.filters.BloomFilter()
+var dot = new Pixi.filters.DotScreenFilter()
+var bloom = window.bloom = new Pixi.filters.BloomFilter()
 // var blur = window.blur = new Pixi.filters.BlurFilter()
 // blur.blurX = 20
-// stage.filters = [ blur ]
+//stage.filters = [ bloom ]
 
 // Linearly move the starfield to test stuff
 quay.on( '<up>', event => {
@@ -66,8 +67,8 @@ function init() {
                 max: 1
             },
             scale: {
-                min: .085,
-                max: .125
+                min: .1,
+                max: .75
             },
             color: {
                 from: [ 0xc0, 0xc0, 0xc0 ],
@@ -79,7 +80,8 @@ function init() {
         size: {
             width: CONSTANTS.get( 'CANVAS_WIDTH' ),
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )
-        }
+        },
+        filters: [ bloom ]
     })
 
     stage.addChild( starfield.container )

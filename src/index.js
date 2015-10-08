@@ -18,7 +18,8 @@ export default class Starfield {
                 width: 500,
                 height: 500
             },
-            density: 500
+            density: 500,
+            filters: null
         }, opts )
 
         this.opts.schema = Object.assign({
@@ -40,6 +41,14 @@ export default class Starfield {
         this.container = opts.schema && opts.schema.color
             ? new Pixi.Container()
             : this._createParticleContainer( this.opts.density )
+
+        if ( this.opts.filters ) {
+            this.opts.filters = Array.isArray( this.opts.filters )
+                ? this.opts.filters
+                : [ this.opts.filters ]
+
+            this.container.filters = this.opts.filters
+        }
 
         this.pos = new Pixi.Point( 0, 0 )
         this.lastPos = new Pixi.Point( 0, 0 )

@@ -1,3 +1,8 @@
+# 0.3.0
+
+* _add_ particle container when tinting is unnecessary
+* _add_ support filters
+
 # 0.2.0
 
 * _add_ set sprite blend mode

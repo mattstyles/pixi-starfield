@@ -21,7 +21,7 @@ export default class Star {
 
         this.schema = schema
 
-        this.sprite = new Pixi.Sprite( this.schema.tex[ random( 0, 2 ) ] )
+        this.sprite = new Pixi.Sprite( this.schema.tex[ random( 0, this.schema.tex.length - 1 ) ] )
         this.sprite.anchor.set( .5, .5 )
 
         this.position = this.sprite.position

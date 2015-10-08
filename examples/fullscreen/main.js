@@ -62,13 +62,14 @@ function init() {
     starfield = window.starfield = new Starfield({
         schema: {
             tex: [
-                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX1' ) ].texture,
+                // Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX1' ) ].texture,
                 Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX2' ) ].texture,
-                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX3' ) ].texture
+                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX3' ) ].texture,
+                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX4' ) ].texture
             ],
             alpha: {
-                min: 0,
-                max: .5
+                min: .25,
+                max: .75
             },
             scale: {
                 min: .2,
@@ -79,15 +80,15 @@ function init() {
                 to: [ 0xf0, 0x4f, 0x4f ]
             },
             rotation: true,
-            tempCurve: new Bezier( .75, .1, .85, 1 )
+            tempCurve: new Bezier( .75, .1, .85, 1 ),
+            threshold: .4
         },
         density: CONSTANTS.get( 'NUM_STARS' ),
         size: {
             width: CONSTANTS.get( 'CANVAS_WIDTH' ),
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )
         },
-        filters: [ bloom ],
-        threshold: .3
+        filters: [ bloom ]
     })
 
     stage.addChild( starfield.container )
@@ -121,4 +122,5 @@ Pixi.loader
     .add( CONSTANTS.get( 'STAR_TEX1' ) )
     .add( CONSTANTS.get( 'STAR_TEX2' ) )
     .add( CONSTANTS.get( 'STAR_TEX3' ) )
+    .add( CONSTANTS.get( 'STAR_TEX4' ) )
     .load( init )

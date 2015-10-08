@@ -4,6 +4,7 @@
 * _add_ support filters
 * _add_ star rotation
 * _add_ multiple textures
+* _add_ render threshold
 
 # 0.2.0
 

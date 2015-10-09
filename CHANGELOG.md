@@ -1,7 +1,12 @@
-#
+# 0.4.0
 
 * _add_ specify heightmap to use for star generation
 * _fix_ temp threshold should be on the lower bound
+* _fix_ all out of bounds stars now come back in bounds
+* _add_ schema abstraction
+* _add_ transition between schemas
+* _update_ build scripts
+* _add_ layered demo
 
 # 0.3.0
 

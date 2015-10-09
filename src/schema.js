@@ -10,21 +10,35 @@ import isPlainObject from 'lodash.isplainobject'
 import xtend from 'xtend'
 import { lerp } from 'mathutil'
 
-var schemas = Symbol( 'schemas' )
+// Private schemas symbol
+const schemas = Symbol( 'schemas' )
 
-var _opts = {
+// Default schema options
+const _opts = {
     maxCount: 500
 }
+// Default schema
 var _schema = {
     alpha: {
         min: 0,
         max: 1
+    },
+    scale: {
+        min: .2,
+        max: 1
     }
 }
 
-
+// Interpolation functions by property
 var interpolate = {
     scale: function( scalar, a, b ) {
+        return {
+            min: lerp( scalar, a.min, b.min ),
+            max: lerp( scalar, a.max, b.max )
+        }
+    },
+
+    alpha: function( scalar, a, b ) {
         return {
             min: lerp( scalar, a.min, b.min ),
             max: lerp( scalar, a.max, b.max )
@@ -99,11 +113,15 @@ export default class Schema {
 
         if ( interpolate[ key ] ) {
             // Interpolate from 0 to 1
+            // @TODO if there is no diff between values in schemas then that value
+            // should simply be returned
             result = interpolate[ key ]( 1 - this.count / this.opts.maxCount, this[ schemas ][ 0 ][ key ], this[ schemas ][ 1 ][ key ] )
         } else {
             result = this[ schemas ][ 1 ][ key ]
         }
 
+        // Reduce the count of the interpolation phase and nuke the old schema
+        // if we're at the end of it
         if ( --this.count === 0 ) {
             this[ schemas ].shift()
         }

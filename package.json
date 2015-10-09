@@ -5,6 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "prepack": "npm run build",
+    "clean": "rm -rf lib && mkdir lib",
+    "prebuild": "npm run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel src --out-dir lib --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,6 +20,7 @@
     "bezier-easing": "^1.1.1",
     "fast-simplex-noise": "^1.0.0",
     "heightmap": "^0.2.1",
+    "lodash.isplainobject": "^3.2.0",
     "lodash.random": "^3.0.1",
     "mathutil": "^0.1.0",
     "pixi.js": "^3.0.7"

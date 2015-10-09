@@ -16,6 +16,8 @@ const MOVESPEED = 6
 window.renderer = renderer
 window.Pixi = Pixi
 
+window.Schema = require( '../../lib/schema' )
+
 var starfield = window.starfield = null
 var clouds = window.clouds = null
 var dust = window.dust = null

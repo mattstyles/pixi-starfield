@@ -41,6 +41,7 @@ export default class Starfield {
             starmap: this.opts.starmap
         }, opts.schema || {} )
 
+
         // If colour values are required then use a regular ole container,
         // otherwise hit the turbo boost
         this.container = opts.schema && opts.schema.color
@@ -124,6 +125,16 @@ export default class Starfield {
         this.opts.size.width = width
         this.opts.size.height = height
         this.bounds = this._getBounds()
+    }
+
+    /**
+     * Applies a new schema
+     * By default a new schema is applied slowly, meaning that there is a period of
+     * transition between the old schema and the new one. This can be controlled
+     * via option parameters.
+     */
+    setSchema( schema ) {
+
     }
 
     /**

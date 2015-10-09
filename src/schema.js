@@ -95,7 +95,6 @@ export default class Schema {
         // With only one schema just return the value
         if ( this[ schemas ].length === 1 ) {
             if ( !this[ schemas ][ 0 ].hasOwnProperty( key ) ) {
-                console.log( 'broom')
                 throw new Error( 'Key ' + key + ' not found on current schema' )
             }
 

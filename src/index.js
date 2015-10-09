@@ -24,23 +24,7 @@ export default class Starfield {
             starmap: starmap
         }, opts )
 
-        this.opts.schema = Object.assign({
-            tex: null,
-            scale: {
-                min: .5,
-                max: 1
-            },
-            alpha: {
-                min: .1,
-                max: 1
-            },
-            rotation: false,
-            tempCurve: new Bezier( .75, .1, .9, .5 ),
-            blendMode: Pixi.BLEND_MODES.NORMAL,
-            threshold: 0,
-            starmap: this.opts.starmap
-        }, opts.schema || {} )
-
+        // @TODO move these defaults out into the schema class
         this.schema = new Schema( Object.assign({
             tex: null,
             scale: {

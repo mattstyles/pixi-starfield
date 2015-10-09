@@ -75,7 +75,7 @@ function init() {
             ],
             alpha: {
                 min: .18,
-                max: .5
+                max: .34
             },
             scale: {
                 min: .3,
@@ -87,9 +87,9 @@ function init() {
             },
             rotation: true,
             tempCurve: new Bezier( .75, .1, .85, 1 ),
-            threshold: 0
+            threshold: .4
         },
-        density: .00025 * window.innerWidth * window.innerHeight,
+        density: .0002 * window.innerWidth * window.innerHeight,
         size: {
             width: CONSTANTS.get( 'CANVAS_WIDTH' ),
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )
@@ -114,7 +114,7 @@ function init() {
             tempCurve: new Bezier( .75, .1, .85, 1 ),
             threshold: .05
         },
-        density: .025 * window.innerWidth * window.innerHeight,
+        density: .0005 * window.innerWidth * window.innerHeight,
         size: {
             width: CONSTANTS.get( 'CANVAS_WIDTH' ),
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )

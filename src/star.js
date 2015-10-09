@@ -81,7 +81,7 @@ export default class Star {
         let temp = this.schema.tempCurve.get( base )
 
         if ( this.schema.threshold ) {
-            this.sprite.visible = temp <= this.schema.threshold
+            this.sprite.visible = temp >= this.schema.threshold
         }
 
         this.sprite.alpha = lerp( temp, this.schema.alpha.min, this.schema.alpha.max )

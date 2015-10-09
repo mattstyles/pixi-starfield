@@ -1,3 +1,8 @@
+#
+
+* _add_ specify heightmap to use for star generation
+* _fix_ temp threshold should be on the lower bound
+
 # 0.3.0
 
 * _add_ particle container when tinting is unnecessary

@@ -2,6 +2,7 @@
 import Pixi from 'pixi.js'
 import Bezier from 'bezier-easing'
 
+import starmap from './starmap'
 import Star from './star'
 
 
@@ -19,7 +20,8 @@ export default class Starfield {
                 height: 500
             },
             density: 500,
-            filters: null
+            filters: null,
+            starmap: starmap
         }, opts )
 
         this.opts.schema = Object.assign({
@@ -35,7 +37,8 @@ export default class Starfield {
             rotation: false,
             tempCurve: new Bezier( .75, .1, .9, .5 ),
             blendMode: Pixi.BLEND_MODES.NORMAL,
-            threshold: 0
+            threshold: 0,
+            starmap: this.opts.starmap
         }, opts.schema || {} )
 
         // If colour values are required then use a regular ole container,

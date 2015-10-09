@@ -74,12 +74,12 @@ function init() {
                 Pixi.loader.resources[ '../common/dc512-2.png' ].texture
             ],
             alpha: {
-                min: .15,
-                max: .6
+                min: .18,
+                max: .5
             },
             scale: {
-                min: .4,
-                max: .9
+                min: .3,
+                max: .8
             },
             color: {
                 from: [ 0xa4, 0x26, 0xbf ],
@@ -87,9 +87,9 @@ function init() {
             },
             rotation: true,
             tempCurve: new Bezier( .75, .1, .85, 1 ),
-            threshold: .4
+            threshold: 0
         },
-        density: CONSTANTS.get( 'NUM_STARS' ),
+        density: .00025 * window.innerWidth * window.innerHeight,
         size: {
             width: CONSTANTS.get( 'CANVAS_WIDTH' ),
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )
@@ -108,17 +108,13 @@ function init() {
             },
             scale: {
                 min: .25,
-                max: 1
+                max: .8
             },
-            color: {
-                from: [ 0xc0, 0xc8, 0xc8 ],
-                to: [ 0xf0, 0xff, 0xff ]
-            },
-            rotation: true,
+            rotation: false,
             tempCurve: new Bezier( .75, .1, .85, 1 ),
-            threshold: 0
+            threshold: .05
         },
-        density: CONSTANTS.get( 'NUM_STARS' ),
+        density: .025 * window.innerWidth * window.innerHeight,
         size: {
             width: CONSTANTS.get( 'CANVAS_WIDTH' ),
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )

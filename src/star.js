@@ -4,7 +4,6 @@ import Bezier from 'bezier-easing'
 import random from 'lodash.random'
 import { lerp, toRadians } from 'mathutil'
 
-import starmap from './starmap'
 import { colourToValue } from './util/color'
 
 /**
@@ -78,7 +77,7 @@ export default class Star {
      * @returns this
      */
     setBrightness() {
-        let base = starmap.getValue( this.sprite.position.x, this.sprite.position.y )
+        let base = this.schema.starmap.getValue( this.sprite.position.x, this.sprite.position.y )
         let temp = this.schema.tempCurve.get( base )
 
         if ( this.schema.threshold ) {
@@ -90,6 +89,7 @@ export default class Star {
         // Just randomise size between max and min
         // @TODO dont use standard random, grab a new separate heightmap
         let scale = random( this.schema.scale.min, this.schema.scale.max )
+        //let scale = lerp( temp, this.schema.scale.min, this.schema.scale.max )
         this.sprite.scale.set( scale, scale )
 
         // @TODO rotation, and probably scale, could do with a separate heightmap to add

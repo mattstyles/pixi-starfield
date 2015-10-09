@@ -154,8 +154,10 @@ export default class Starfield {
 
                 // Set position if the difference is outside the bounds
                 star.setPosition(
-                    Math.abs( diffX ) >= this.opts.size.width ? this.pos.x + diffX : starpos[ 0 ],
-                    Math.abs( diffY ) >= this.opts.size.height ? this.pos.y + diffY : starpos[ 1 ]
+                    // Try restricting the diff to stop stars from being out of bounds
+                    // one side and merely flipping out of bounds the other side
+                    Math.abs( diffX ) >= this.opts.size.width ? this.pos.x + diffX * .75 : starpos[ 0 ],
+                    Math.abs( diffY ) >= this.opts.size.height ? this.pos.y + diffY * .75 : starpos[ 1 ]
                 )
             }
         })

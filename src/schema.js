@@ -43,6 +43,21 @@ var interpolate = {
             min: lerp( scalar, a.min, b.min ),
             max: lerp( scalar, a.max, b.max )
         }
+    },
+
+    color: function( scalar, a, b ) {
+        return {
+            from: [
+                lerp( scalar, a.from[ 0 ], b.from[ 0 ] ),
+                lerp( scalar, a.from[ 1 ], b.from[ 1 ] ),
+                lerp( scalar, a.from[ 2 ], b.from[ 2 ] )
+            ],
+            to: [
+                lerp( scalar, a.to[ 0 ], b.to[ 0 ] ),
+                lerp( scalar, a.to[ 1 ], b.to[ 1 ] ),
+                lerp( scalar, a.to[ 2 ], b.to[ 2 ] )
+            ]
+        }
     }
 }
 
@@ -125,6 +140,10 @@ export default class Schema {
         // @TODO do this at the end of the tick and do it only once
         if ( --this.count === 0 ) {
             this[ schemas ].shift()
+
+            if ( this[ schemas ].length > 1 ) {
+                this.count = this.opts.maxCount
+            }
         }
 
         // Result should be populated with something here

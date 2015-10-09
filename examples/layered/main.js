@@ -18,39 +18,46 @@ window.Pixi = Pixi
 
 var starfield = window.starfield = null
 var clouds = window.clouds = null
+
 var stage = window.stage = new Pixi.Container()
 var quay = new Quay()
 var pos = window.pos = new Pixi.Point( 0, 0 )
 
-//var dot = new Pixi.filters.DotScreenFilter()
 var bloom = window.bloom = new Pixi.filters.BloomFilter()
-// var blur = window.blur = new Pixi.filters.BlurFilter()
-// blur.blurX = 20
 //stage.filters = [ bloom ]
 
 // Linearly move the starfield to test stuff
 quay.on( '<up>', event => {
     starfield.setPosition( pos.x, pos.y-- )
+    clouds.setPosition( pos.x, pos.y-- )
+
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x, pos.y-=MOVESPEED )
+        clouds.setPosition( pos.x, pos.y-=MOVESPEED )
     }
 })
 quay.on( '<down>', event => {
     starfield.setPosition( pos.x, pos.y++ )
+    clouds.setPosition( pos.x, pos.y++ )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x, pos.y+=MOVESPEED )
+        clouds.setPosition( pos.x, pos.y+=MOVESPEED )
     }
 })
 quay.on( '<left>', event => {
     starfield.setPosition( pos.x--, pos.y )
+    clouds.setPosition( pos.x--, pos.y )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x-=MOVESPEED, pos.y )
+        clouds.setPosition( pos.x-=MOVESPEED, pos.y )
     }
 })
 quay.on( '<right>', event => {
     starfield.setPosition( pos.x++, pos.y )
+    clouds.setPosition( pos.x++, pos.y )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x+=MOVESPEED, pos.y )
+        clouds.setPosition( pos.x+=MOVESPEED, pos.y )
     }
 })
 
@@ -60,13 +67,11 @@ function render() {
 
 function init() {
     console.log( 'initialising' )
-    starfield = window.starfield = new Starfield({
+    clouds = window.clouds = new Starfield({
         schema: {
             tex: [
-                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX1' ) ].texture,
-                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX2' ) ].texture
-                // Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX3' ) ].texture,
-                // Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX4' ) ].texture
+                Pixi.loader.resources[ '../common/dc512-1.png' ].texture,
+                Pixi.loader.resources[ '../common/dc512-2.png' ].texture
             ],
             alpha: {
                 min: .15,
@@ -92,7 +97,37 @@ function init() {
         // filters: [ bloom ]
     })
 
+    starfield = window.starfield = new Starfield({
+        schema: {
+            tex: [
+                Pixi.loader.resources[ '../common/circle4.png' ].texture
+            ],
+            alpha: {
+                min: .2,
+                max: 1
+            },
+            scale: {
+                min: .25,
+                max: 1
+            },
+            color: {
+                from: [ 0xc0, 0xc8, 0xc8 ],
+                to: [ 0xf0, 0xff, 0xff ]
+            },
+            rotation: true,
+            tempCurve: new Bezier( .75, .1, .85, 1 ),
+            threshold: 0
+        },
+        density: CONSTANTS.get( 'NUM_STARS' ),
+        size: {
+            width: CONSTANTS.get( 'CANVAS_WIDTH' ),
+            height: CONSTANTS.get( 'CANVAS_HEIGHT' )
+        }
+        // filters: [ bloom ]
+    })
+
     stage.addChild( starfield.container )
+    stage.addChild( clouds.container )
 
     render()
     resume()
@@ -104,6 +139,7 @@ let renderTick = new Tick()
         memstats.begin()
 
         starfield.update()
+        clouds.update()
         render()
 
         memstats.end()
@@ -120,8 +156,7 @@ window.resume = function() {
 pause()
 
 Pixi.loader
-    .add( CONSTANTS.get( 'STAR_TEX1' ) )
-    .add( CONSTANTS.get( 'STAR_TEX2' ) )
-    .add( CONSTANTS.get( 'STAR_TEX3' ) )
-    .add( CONSTANTS.get( 'STAR_TEX4' ) )
+    .add( '../common/dc512-1.png' )
+    .add( '../common/dc512-2.png' )
+    .add( '../common/circle4.png' )
     .load( init )

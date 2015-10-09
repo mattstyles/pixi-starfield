@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PIXI-starfield</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser-polyfill.min.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            overflow:hidden;
+        }
+
+        body {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Helvetica Neue', 'Helvetica', 'Lucida Grande', 'Arial', sans-serif;
+            font-size: 15px;
+            color: @--color-black20;
+            background: @--color-white10;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: greyscale;
+        }
+
+        canvas {
+            position: absolute;
+            display: block;
+        }
+
+        .Show {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            z-index: 1000;
+            width: 200px;
+            background: rgba( 0, 0, 0, .2 );
+            color: white;
+            font-family: 'Coolville', 'Source Code Pro', 'Courier', monospace;
+            font-size: 20px;
+        }
+        .Show li {
+            width: 100%;
+            border-bottom: rgba( 255, 255, 255, .5 );
+        }
+
+        .Stats {
+            float: left;
+        }
+        .Stats-container {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 1000;
+        }
+
+        /* Micro clearfix, courtesy of [Nicolas Gallagher](http://nicolasgallagher.com/micro-clearfix-hack/) */
+        .u-cf:before,
+        .u-cf:after {
+            content: " "; /* 1 */
+            display: table; /* 2 */
+        }
+        .u-cf:after {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="Stats-container js-Stats-container u-cf"></div>
+    <ul class="Show js-show"></ul>
+    <script src="./build.js"></script>
+</body>
+</html>

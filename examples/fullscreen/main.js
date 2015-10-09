@@ -62,22 +62,22 @@ function init() {
     starfield = window.starfield = new Starfield({
         schema: {
             tex: [
-                // Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX1' ) ].texture,
-                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX2' ) ].texture,
-                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX3' ) ].texture,
-                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX4' ) ].texture
+                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX1' ) ].texture,
+                Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX2' ) ].texture
+                // Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX3' ) ].texture,
+                // Pixi.loader.resources[ CONSTANTS.get( 'STAR_TEX4' ) ].texture
             ],
             alpha: {
-                min: .25,
-                max: .75
+                min: .15,
+                max: .6
             },
             scale: {
-                min: .2,
+                min: .4,
                 max: .9
             },
             color: {
-                from: [ 0xc0, 0x80, 0x80 ],
-                to: [ 0xf0, 0x4f, 0x4f ]
+                from: [ 0xa4, 0x26, 0xbf ],
+                to: [ 0xbb, 0x3b, 0xd8 ]
             },
             rotation: true,
             tempCurve: new Bezier( .75, .1, .85, 1 ),
@@ -87,8 +87,8 @@ function init() {
         size: {
             width: CONSTANTS.get( 'CANVAS_WIDTH' ),
             height: CONSTANTS.get( 'CANVAS_HEIGHT' )
-        },
-        filters: [ bloom ]
+        }
+        // filters: [ bloom ]
     })
 
     stage.addChild( starfield.container )

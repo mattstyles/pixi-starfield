@@ -6,11 +6,11 @@ const CONSTANTS = toMap({
     CANVAS_DP: window.devicePixelRatio,
 
     // .05% of screen density .0005
-    NUM_STARS: .001 * window.innerWidth * window.innerHeight,
-    STAR_TEX1: '../common/cloud128-1.png',
-    STAR_TEX2: '../common/cloud256-1.png',
-    STAR_TEX3: '../common/cloud256-2.png',
-    STAR_TEX4: '../common/cloud512-1.png'
+    NUM_STARS: .0005 * window.innerWidth * window.innerHeight,
+    STAR_TEX1: '../common/dc512-1.png',
+    STAR_TEX2: '../common/dc512-2.png',
+    STAR_TEX3: '../common/cloud512-2.png',
+    STAR_TEX4: '../common/cloud512-3.png'
 })
 
 export default CONSTANTS

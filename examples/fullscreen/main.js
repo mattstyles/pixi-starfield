@@ -17,7 +17,6 @@ window.renderer = renderer
 window.Pixi = Pixi
 
 var starfield = window.starfield = null
-var clouds = window.clouds = null
 var stage = window.stage = new Pixi.Container()
 var quay = new Quay()
 var pos = window.pos = new Pixi.Point( 0, 0 )

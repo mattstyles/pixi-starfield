@@ -18,47 +18,68 @@ window.Pixi = Pixi
 
 var starfield = window.starfield = null
 var clouds = window.clouds = null
+var dust = window.dust = null
 
 var stage = window.stage = new Pixi.Container()
 var quay = new Quay()
 var pos = window.pos = new Pixi.Point( 0, 0 )
+var dustpos = window.dustpos = new Pixi.Point( 0, 0 )
 
 var bloom = window.bloom = new Pixi.filters.BloomFilter()
 //stage.filters = [ bloom ]
 
 // Linearly move the starfield to test stuff
 quay.on( '<up>', event => {
-    starfield.setPosition( pos.x, pos.y-- )
-    clouds.setPosition( pos.x, pos.y-- )
+    pos.y -= .5
+    dustpos.y -= .75
 
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x, pos.y-=MOVESPEED )
-        clouds.setPosition( pos.x, pos.y-=MOVESPEED )
+        pos.y -= 1
+        dustpos.y -= MOVESPEED
     }
+
+    starfield.setPosition( pos.x, pos.y )
+    clouds.setPosition( pos.x, pos.y )
+    dust.setPosition( dustpos.x, dustpos.y )
 })
 quay.on( '<down>', event => {
-    starfield.setPosition( pos.x, pos.y++ )
-    clouds.setPosition( pos.x, pos.y++ )
+    pos.y += .5
+    dustpos.y += .75
+
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x, pos.y+=MOVESPEED )
-        clouds.setPosition( pos.x, pos.y+=MOVESPEED )
+        pos.y += 1
+        dustpos.y += MOVESPEED
     }
+
+    starfield.setPosition( pos.x, pos.y )
+    clouds.setPosition( pos.x, pos.y )
+    dust.setPosition( dustpos.x, dustpos.y )
 })
 quay.on( '<left>', event => {
-    starfield.setPosition( pos.x--, pos.y )
-    clouds.setPosition( pos.x--, pos.y )
+    pos.x -= .5
+    dustpos.x -= .75
+
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x-=MOVESPEED, pos.y )
-        clouds.setPosition( pos.x-=MOVESPEED, pos.y )
+        pos.x -= 1
+        dustpos.x -= MOVESPEED
     }
+
+    starfield.setPosition( pos.x, pos.y )
+    clouds.setPosition( pos.x, pos.y )
+    dust.setPosition( dustpos.x, dustpos.y )
 })
 quay.on( '<right>', event => {
-    starfield.setPosition( pos.x++, pos.y )
-    clouds.setPosition( pos.x++, pos.y )
+    pos.x += .5
+    dustpos.x += .75
+
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x+=MOVESPEED, pos.y )
-        clouds.setPosition( pos.x+=MOVESPEED, pos.y )
+        pos.x += 1
+        dustpos.x += MOVESPEED
     }
+
+    starfield.setPosition( pos.x, pos.y )
+    clouds.setPosition( pos.x, pos.y )
+    dust.setPosition( dustpos.x, dustpos.y )
 })
 
 function render() {
@@ -122,8 +143,34 @@ function init() {
         // filters: [ bloom ]
     })
 
+    dust = window.dust = new Starfield({
+        schema: {
+            tex: [
+                Pixi.loader.resources[ '../common/circle4.png' ].texture
+            ],
+            alpha: {
+                min: .1,
+                max: .35
+            },
+            scale: {
+                min: .4,
+                max: .75
+            },
+            rotation: false,
+            tempCurve: new Bezier( .75, .1, .85, 1 ),
+            threshold: .1
+        },
+        density: .0025 * window.innerWidth * window.innerHeight,
+        size: {
+            width: CONSTANTS.get( 'CANVAS_WIDTH' ),
+            height: CONSTANTS.get( 'CANVAS_HEIGHT' )
+        }
+        // filters: [ bloom ]
+    })
+
     stage.addChild( starfield.container )
     stage.addChild( clouds.container )
+    stage.addChild( dust.container )
 
     render()
     resume()
@@ -136,6 +183,8 @@ let renderTick = new Tick()
 
         starfield.update()
         clouds.update()
+        dust.update()
+
         render()
 
         memstats.end()

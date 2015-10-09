@@ -94,7 +94,8 @@ export default class Schema {
     get( key ) {
         // With only one schema just return the value
         if ( this[ schemas ].length === 1 ) {
-            if ( !this[ schemas ][ 0 ][ key ] ) {
+            if ( !this[ schemas ][ 0 ].hasOwnProperty( key ) ) {
+                console.log( 'broom')
                 throw new Error( 'Key ' + key + ' not found on current schema' )
             }
 
@@ -122,6 +123,7 @@ export default class Schema {
 
         // Reduce the count of the interpolation phase and nuke the old schema
         // if we're at the end of it
+        // @TODO do this at the end of the tick and do it only once
         if ( --this.count === 0 ) {
             this[ schemas ].shift()
         }

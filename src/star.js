@@ -20,7 +20,8 @@ export default class Star {
 
         this.schema = schema
 
-        this.sprite = new Pixi.Sprite( this.schema.tex[ random( 0, this.schema.tex.length - 1 ) ] )
+        let textures = this.schema.get( 'tex' )
+        this.sprite = new Pixi.Sprite( textures[ random( 0, textures.length - 1 ) ] )
         this.sprite.anchor.set( .5, .5 )
 
         this.position = this.sprite.position
@@ -75,31 +76,36 @@ export default class Star {
      * Uses the underlying heightmap data corresponding to star position to set
      * various rendering properties of the star
      * @returns this
+     *
+     * @TODO this function happens frequently and needs benchmarking
      */
     setBrightness() {
-        let base = this.schema.starmap.getValue( this.sprite.position.x, this.sprite.position.y )
-        let temp = this.schema.tempCurve.get( base )
+        let base = this.schema.get( 'starmap' ).getValue( this.sprite.position.x, this.sprite.position.y )
+        let temp = this.schema.get( 'tempCurve' ).get( base )
 
-        if ( this.schema.threshold ) {
-            this.sprite.visible = temp >= this.schema.threshold
+        if ( this.schema.get( 'threshold' ) ) {
+            this.sprite.visible = temp >= this.schema.get( 'threshold' )
         }
 
-        this.sprite.alpha = lerp( temp, this.schema.alpha.min, this.schema.alpha.max )
+        let alpha = this.schema.get( 'alpha' )
+        this.sprite.alpha = lerp( temp, alpha.min, alpha.max )
 
         // Just randomise size between max and min
         // @TODO dont use standard random, grab a new separate heightmap
-        let scale = random( this.schema.scale.min, this.schema.scale.max )
+        let scale = this.schema.get( 'scale' )
+        let randomscale = random( scale.min, scale.max )
         //let scale = lerp( temp, this.schema.scale.min, this.schema.scale.max )
-        this.sprite.scale.set( scale, scale )
+        this.sprite.scale.set( randomscale, randomscale )
 
         // @TODO rotation, and probably scale, could do with a separate heightmap to add
         // some variety to different clusters of stars
-        if ( this.schema.rotation ) {
+        if ( this.schema.get( 'rotation' ) ) {
             this.sprite.rotation = toRadians( lerp( temp, 0, 360 ) )
         }
 
-        if ( this.schema.color ) {
-            this.sprite.tint = colourToValue( temp, this.schema.color.from, this.schema.color.to )
+        let color = this.schema.get( 'color' )
+        if ( color ) {
+            this.sprite.tint = colourToValue( temp, color.from, color.to )
         }
 
         return this

@@ -4,7 +4,7 @@ import Bezier from 'bezier-easing'
 
 import starmap from './starmap'
 import Star from './star'
-
+import Schema from './schema'
 
 /**
  * Starfield
@@ -40,6 +40,23 @@ export default class Starfield {
             threshold: 0,
             starmap: this.opts.starmap
         }, opts.schema || {} )
+
+        this.schema = new Schema( Object.assign({
+            tex: null,
+            scale: {
+                min: .5,
+                max: 1
+            },
+            alpha: {
+                min: .1,
+                max: 1
+            },
+            rotation: false,
+            tempCurve: new Bezier( .75, .1, .9, .5 ),
+            blendMode: Pixi.BLEND_MODES.NORMAL,
+            threshold: 0,
+            starmap: this.opts.starmap
+        }, opts.schema || {} ) )
 
 
         // If colour values are required then use a regular ole container,
@@ -84,7 +101,7 @@ export default class Starfield {
             scale: true,
             alpha: true,
             position: true,
-            rotation: this.opts.schema.rotation,
+            rotation: this.schema.get( 'rotation' ),
             uvs: false
         })
     }
@@ -128,21 +145,11 @@ export default class Starfield {
     }
 
     /**
-     * Applies a new schema
-     * By default a new schema is applied slowly, meaning that there is a period of
-     * transition between the old schema and the new one. This can be controlled
-     * via option parameters.
-     */
-    setSchema( schema ) {
-
-    }
-
-    /**
      * Creates a brand new star
      * @returns <Star>
      */
     createStar() {
-        let star = new Star( this.opts.schema )
+        let star = new Star( this.schema )
         star.setRandomPosition( this.bounds )
 
         this.stars.push( star )

@@ -32,6 +32,9 @@ var _schema = {
 // Interpolation functions by property
 var interpolate = {
     scale: function( scalar, a, b ) {
+        if ( Object.is( a, b ) ) {
+            return a
+        }
         return {
             min: lerp( scalar, a.min, b.min ),
             max: lerp( scalar, a.max, b.max )
@@ -39,6 +42,9 @@ var interpolate = {
     },
 
     alpha: function( scalar, a, b ) {
+        if ( Object.is( a, b ) ) {
+            return a
+        }
         return {
             min: lerp( scalar, a.min, b.min ),
             max: lerp( scalar, a.max, b.max )
@@ -46,6 +52,9 @@ var interpolate = {
     },
 
     color: function( scalar, a, b ) {
+        if ( Object.is( a, b ) ) {
+            return a
+        }
         return {
             from: [
                 lerp( scalar, a.from[ 0 ], b.from[ 0 ] ),
@@ -110,7 +119,7 @@ export default class Schema {
         // With only one schema just return the value
         if ( this[ schemas ].length === 1 ) {
             if ( !this[ schemas ][ 0 ].hasOwnProperty( key ) ) {
-                throw new Error( 'Key ' + key + ' not found on current schema' )
+                return null
             }
 
             return this[ schemas ][ 0 ][ key ]
@@ -120,7 +129,7 @@ export default class Schema {
         // 0 and 1 and return the result. Kill 0 is the interpolation phase has
         // been reached.
         if ( !this[ schemas ][ 0 ][ key ] || !this[ schemas ][ 1 ][ key ] ) {
-            throw new Error( 'Key ' + key + ' not found on current schema' )
+            return null
         }
 
         // For now hardcode the interpolation based on property name

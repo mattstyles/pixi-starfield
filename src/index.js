@@ -20,31 +20,14 @@ export default class Starfield {
                 height: 500
             },
             density: 500,
-            filters: null,
-            starmap: starmap
+            filters: null
         }, opts )
 
-        // @TODO move these defaults out into the schema class
-        this.schema = new Schema( Object.assign({
-            tex: null,
-            scale: {
-                min: .5,
-                max: 1
-            },
-            alpha: {
-                min: .1,
-                max: 1
-            },
-            rotation: false,
-            tempCurve: new Bezier( .75, .1, .9, .5 ),
-            blendMode: Pixi.BLEND_MODES.NORMAL,
-            threshold: 0,
-            starmap: this.opts.starmap
-        }, opts.schema || {} ) )
-
+        this.schema = new Schema( opts.schema )
 
         // If colour values are required then use a regular ole container,
-        // otherwise hit the turbo boost
+        // otherwise hit the turbo boost. Note that there is currently no mechanism
+        // to change container type if a color is supplied later.
         this.container = opts.schema && opts.schema.color
             ? new Pixi.Container()
             : this._createParticleContainer( this.opts.density )

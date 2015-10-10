@@ -9,6 +9,9 @@
 import isPlainObject from 'lodash.isplainobject'
 import xtend from 'xtend'
 import { lerp } from 'mathutil'
+import Bezier from 'bezier-easing'
+
+import starmap from './starmap'
 
 // Private schemas symbol
 const schemas = Symbol( 'schemas' )
@@ -19,6 +22,7 @@ const _opts = {
 }
 // Default schema
 var _schema = {
+    tex: null,
     alpha: {
         min: 0,
         max: 1
@@ -26,7 +30,11 @@ var _schema = {
     scale: {
         min: .2,
         max: 1
-    }
+    },
+    rotation: false,
+    tempCurve: new Bezier( .75, .1, .9, .5 ),
+    threshold: 0,
+    starmap: starmap
 }
 
 // Interpolation functions by property

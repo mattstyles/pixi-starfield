@@ -1,3 +1,8 @@
+#
+
+* _fix_ non-present schema now returns null instead of throwing
+* _fix_ banding at higher movement speeds resulting from tight out-of-bounds checks and recreate
+
 # 0.4.0
 
 * _add_ specify heightmap to use for star generation

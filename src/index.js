@@ -22,8 +22,8 @@ export default class Starfield {
             /**
              * Size of rendering area
              * @type <Object>
-             *   @param width <Integer> pixel width of rendering area
-             *   @param height <Integer> pixel height of rendering area
+             *   @prop width <Integer> pixel width of rendering area
+             *   @prop height <Integer> pixel height of rendering area
              */
             size: {
                 width: 500,

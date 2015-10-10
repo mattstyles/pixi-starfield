@@ -156,8 +156,8 @@ export default class Starfield {
                 star.setPosition(
                     // Restricting the diff to stop stars from being out of bounds
                     // one side and merely flipping out of bounds the other side
-                    Math.abs( diffX ) >= this.opts.size.width ? this.pos.x + diffX * .75 : starpos[ 0 ],
-                    Math.abs( diffY ) >= this.opts.size.height ? this.pos.y + diffY * .75 : starpos[ 1 ]
+                    Math.abs( diffX ) >= this.opts.size.width ? this.pos.x + diffX * .95 : starpos[ 0 ],
+                    Math.abs( diffY ) >= this.opts.size.height ? this.pos.y + diffY * .95 : starpos[ 1 ]
                 )
             }
         })

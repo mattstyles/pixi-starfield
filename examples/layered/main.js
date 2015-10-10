@@ -11,11 +11,10 @@ import renderer from 'core/renderer'
 import CONSTANTS from 'core/constants'
 import Starfield from '../../lib'
 
-const MOVESPEED = 6
+var MOVESPEED = 24
 
 window.renderer = renderer
 window.Pixi = Pixi
-
 window.Schema = require( '../../lib/schema' )
 
 var starfield = window.starfield = null
@@ -36,7 +35,7 @@ quay.on( '<up>', event => {
     dustpos.y -= .75
 
     if ( quay.pressed.has( '<shift>' ) ) {
-        pos.y -= 1
+        pos.y -= MOVESPEED / 6
         dustpos.y -= MOVESPEED
     }
 
@@ -49,7 +48,7 @@ quay.on( '<down>', event => {
     dustpos.y += .75
 
     if ( quay.pressed.has( '<shift>' ) ) {
-        pos.y += 1
+        pos.y += MOVESPEED / 6
         dustpos.y += MOVESPEED
     }
 
@@ -62,7 +61,7 @@ quay.on( '<left>', event => {
     dustpos.x -= .75
 
     if ( quay.pressed.has( '<shift>' ) ) {
-        pos.x -= 1
+        pos.x -= MOVESPEED / 6
         dustpos.x -= MOVESPEED
     }
 
@@ -75,7 +74,7 @@ quay.on( '<right>', event => {
     dustpos.x += .75
 
     if ( quay.pressed.has( '<shift>' ) ) {
-        pos.x += 1
+        pos.x += MOVESPEED / 6
         dustpos.x += MOVESPEED
     }
 
@@ -105,8 +104,8 @@ function init() {
                 max: .8
             },
             color: {
-                from: [ 0xa4, 0x26, 0xbf ],
-                to: [ 0xbb, 0x3b, 0xd8 ]
+                from: [ 0xdd, 0x14, 0x8d ],
+                to: [ 0x50, 0x30, 0xc8 ]
             },
             rotation: true,
             tempCurve: new Bezier( .75, .1, .85, 1 ),

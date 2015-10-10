@@ -13,18 +13,49 @@ import Schema from './schema'
  * Generates a starfield and manages those stars
  */
 export default class Starfield {
+    /**
+     * @constructs
+     * @param opts <Object> options, also should contain schema for star creation
+     */
     constructor( opts = {} ) {
         this.opts = Object.assign({
+            /**
+             * Size of rendering area
+             * @type <Object>
+             *   @param width <Integer> pixel width of rendering area
+             *   @param height <Integer> pixel height of rendering area
+             */
             size: {
                 width: 500,
                 height: 500
             },
+
+            /**
+             * Star density i.e. number of stars in current bounding area
+             * @type <Integer>
+             */
             density: 500,
+
+            /**
+             * Pixi filters to apply to the container, applying at the star level
+             * is, like, well too slow man
+             * @type <Array|Pixi.filters>
+             */
             filters: null,
+
+            /**
+             * Forces a container to be used. Under some circumstances a particle
+             * container will be used as a free speed boost, however, if colour
+             * tinting is later added then it wont do anything, so turn this on
+             * to force rendering into a regular container if you need tinting
+             * at any point in the lifecycle.
+             * Similarly, if the density changes use a regular container.
+             * @type <Boolean>
+             */
             forceContainer: false
         }, opts )
 
-        this.schema = new Schema( opts.schema )
+        this.schema = new Schema( opts.schema || {} )
 
         // If colour values are required then use a regular ole container,
         // otherwise hit the turbo boost. Note that there is currently no mechanism
@@ -64,6 +95,9 @@ export default class Starfield {
      * of the time, not the rendering, but, if you really need a boost, you can.
      * Note also that there is currently no mechanism to change container type,
      * so adding colour later won’t work.
+     * @param density <Integer> number of stars
+     * @param schema <Schema> star generation schema
+     * @returns <Pixi.ParticleContainer>
      */
     _createParticleContainer( density, schema ) {
         return new Pixi.ParticleContainer( density, {
@@ -94,23 +128,29 @@ export default class Starfield {
      * Sets the position, updates the bounds and caches the old position
      * @param x <Integer>
      * @param y <Integer>
+     * @returns this
      */
     setPosition( x, y ) {
         this.lastPos.copy( this.pos )
         this.pos.set( x, y )
         this.container.position.set( -this.pos.x + this.opts.size.width / 2, -this.pos.y + this.opts.size.height / 2 )
         this.bounds = this._getBounds()
+
+        return this
     }
 
     /**
      * Determines the height/width of the renderable area
      * @param width <Integer>
      * @param height <Integer>
+     * @returns this
      */
     setSize( width, height ) {
         this.opts.size.width = width
         this.opts.size.height = height
         this.bounds = this._getBounds()
+
+        return this
     }
 
     /**

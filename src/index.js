@@ -20,7 +20,8 @@ export default class Starfield {
                 height: 500
             },
             density: 500,
-            filters: null
+            filters: null,
+            forceContainer: false
         }, opts )
 
         this.schema = new Schema( opts.schema )
@@ -28,7 +29,7 @@ export default class Starfield {
         // If colour values are required then use a regular ole container,
         // otherwise hit the turbo boost. Note that there is currently no mechanism
         // to change container type if a color is supplied later.
-        this.container = opts.schema && opts.schema.color
+        this.container = opts.forceContainer || ( opts.schema && opts.schema.color )
             ? new Pixi.Container()
             : this._createParticleContainer( this.opts.density, this.schema )
 

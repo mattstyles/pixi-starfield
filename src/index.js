@@ -30,7 +30,7 @@ export default class Starfield {
         // to change container type if a color is supplied later.
         this.container = opts.schema && opts.schema.color
             ? new Pixi.Container()
-            : this._createParticleContainer( this.opts.density )
+            : this._createParticleContainer( this.opts.density, this.schema )
 
         if ( this.opts.filters ) {
             this.opts.filters = Array.isArray( this.opts.filters )
@@ -61,14 +61,15 @@ export default class Starfield {
      * not every starfield requires tinting! Speedy speedy
      * In reality the difference isnt so great, the update loop logic takes most
      * of the time, not the rendering, but, if you really need a boost, you can.
-     * @TODO remove reliance on `this`, make pure
+     * Note also that there is currently no mechanism to change container type,
+     * so adding colour later won’t work.
      */
-    _createParticleContainer( density ) {
+    _createParticleContainer( density, schema ) {
         return new Pixi.ParticleContainer( density, {
             scale: true,
             alpha: true,
             position: true,
-            rotation: this.schema.get( 'rotation' ),
+            rotation: schema.get( 'rotation' ),
             uvs: false
         })
     }

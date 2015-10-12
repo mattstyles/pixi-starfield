@@ -38,10 +38,6 @@ quay.on( '<up>', event => {
         pos.y -= MOVESPEED / 6
         dustpos.y -= MOVESPEED
     }
-
-    starfield.setPosition( pos.x, pos.y )
-    clouds.setPosition( pos.x, pos.y )
-    dust.setPosition( dustpos.x, dustpos.y )
 })
 quay.on( '<down>', event => {
     pos.y += .5
@@ -51,10 +47,6 @@ quay.on( '<down>', event => {
         pos.y += MOVESPEED / 6
         dustpos.y += MOVESPEED
     }
-
-    starfield.setPosition( pos.x, pos.y )
-    clouds.setPosition( pos.x, pos.y )
-    dust.setPosition( dustpos.x, dustpos.y )
 })
 quay.on( '<left>', event => {
     pos.x -= .5
@@ -64,10 +56,6 @@ quay.on( '<left>', event => {
         pos.x -= MOVESPEED / 6
         dustpos.x -= MOVESPEED
     }
-
-    starfield.setPosition( pos.x, pos.y )
-    clouds.setPosition( pos.x, pos.y )
-    dust.setPosition( dustpos.x, dustpos.y )
 })
 quay.on( '<right>', event => {
     pos.x += .5
@@ -77,11 +65,13 @@ quay.on( '<right>', event => {
         pos.x += MOVESPEED / 6
         dustpos.x += MOVESPEED
     }
+})
 
+function updatePosition() {
     starfield.setPosition( pos.x, pos.y )
     clouds.setPosition( pos.x, pos.y )
     dust.setPosition( dustpos.x, dustpos.y )
-})
+}
 
 function render() {
     renderer.render( stage )
@@ -182,6 +172,7 @@ let renderTick = new Tick()
         stats.begin()
         memstats.begin()
 
+        updatePosition()
         starfield.update()
         clouds.update()
         dust.update()

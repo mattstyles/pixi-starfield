@@ -1,7 +1,7 @@
 #
 
 * _fix_ non-present schema now returns null instead of throwing
-* _fix_ banding at higher movement speeds resulting from tight out-of-bounds checks and recreate
+* _fix_ out-of-bounds translation and banding of stars at higher movement speeds
 * _add_ `forceContainer` parameter if colour tinting might occur later
 
 # 0.4.0

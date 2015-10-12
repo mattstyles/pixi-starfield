@@ -50,6 +50,10 @@
             border-bottom: rgba( 255, 255, 255, .5 );
         }
 
+        .Show span {
+            margin-left: 4px;
+        }
+
         .Stats {
             float: left;
         }
@@ -78,7 +82,10 @@
 </head>
 <body>
     <div class="Stats-container js-Stats-container u-cf"></div>
-    <ul class="Show js-show"></ul>
+    <div class="Show">
+        <div class="Show-container js-showcontainer"><span class="x"></span><span class="y"></span></div>
+        <div class="Show-star js-showstar"><span class="x"></span><span class="y"></span></div>
+    </div>
     <canvas class="js-canvas" width="500" height="500"></canvas>
     <script src="./build.js"></script>
 </body>

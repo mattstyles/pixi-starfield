@@ -72,7 +72,10 @@ export default class Starfield {
             this.container.filters = this.opts.filters
         }
 
-        this.pos = new Pixi.Point( 0, 0 )
+        // Position gets set during the setPosition, make sure initially it differs
+        // so that setPosition does its thang and repositions the container to make
+        // sure that the position variable refers to the center of the container.
+        this.pos = new Pixi.Point( -1, 0 )
         this.lastPos = new Pixi.Point( 0, 0 )
         this.setPosition( 0, 0 )
 
@@ -116,12 +119,6 @@ export default class Starfield {
      * @returns <Pixi.Rectangle>
      */
     _getBounds() {
-        // return new Pixi.Rectangle(
-        //     this.pos.x - this.opts.size.width + 1,
-        //     this.pos.y - this.opts.size.height + 1,
-        //     -2 + this.opts.size.width * 2,
-        //     -2 + this.opts.size.height * 2
-        // )
         return new Pixi.Rectangle(
             this.pos.x - this.opts.size.width,
             this.pos.y - this.opts.size.height,
@@ -144,9 +141,6 @@ export default class Starfield {
 
         this.lastPos.copy( this.pos )
         this.pos.set( x, y )
-        if ( this.pos.x === this.lastPos.x ) {
-            console.log( 'same x', this.pos.x )
-        }
 
         this.container.position.set( -this.pos.x + this.opts.size.width / 2, -this.pos.y + this.opts.size.height / 2 )
         this.bounds = this._getBounds()
@@ -181,16 +175,39 @@ export default class Starfield {
         return star
     }
 
+    /**
+     * Translates a position in a certain dimension when that position is out
+     * of bounds. Currently only 'x' and 'y' are supported for dimension.
+     * @param dim <String> 'x' or 'y' only or bad things will happen
+     * @param position <Float> the position to translate
+     */
     _translateDimension( dim, position ) {
         // Quick check equality i.e. this dimension has not moved
         if ( this.lastPos[ dim ] === this.pos[ dim ] ) {
             return position
         }
 
+        // Set magnitude to move star by, if this dimension is still contained
+        // within bounds then set to 0
+        let mag = dim === 'x' ? this.bounds.width : this.bounds.height
+
+        if ( dim === 'x' ) {
+            if ( position >= this.bounds.x && position < this.bounds.x + this.bounds.width ) {
+                mag = 0
+            }
+        }
+
+        if ( dim === 'y' ) {
+            if ( position >= this.bounds.y && position < this.bounds.y + this.bounds.height ) {
+                mag = 0
+            }
+        }
+
+
         // Translate forward or backward by bounding width based on direction moved
         return this.lastPos[ dim ] > this.pos[ dim ]
-            ? position -= this.bounds.width
-            : position += this.bounds.width
+            ? position -= mag
+            : position += mag
     }
 
     /**

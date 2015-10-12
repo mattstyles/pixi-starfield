@@ -32,39 +32,52 @@ var stage = window.stage = new Pixi.Container()
 var quay = new Quay()
 var pos = window.pos = new Pixi.Point( 0, 0 )
 
+
+var fieldX = document.querySelector( '.js-showcontainer > .x' )
+var fieldY = document.querySelector( '.js-showcontainer > .y' )
+var starX = document.querySelector( '.js-showstar > .x' )
+var starY = document.querySelector( '.js-showstar > .y' )
+
 // Linearly move the starfield to test stuff
 quay.on( '<up>', event => {
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x, pos.y-=MOVESPEED )
+        pos.y-=MOVESPEED
         return
     }
-    starfield.setPosition( pos.x, --pos.y )
+    pos.y--
 })
 quay.on( '<down>', event => {
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x, pos.y+=MOVESPEED )
+        pos.y+=MOVESPEED
         return
     }
-    starfield.setPosition( pos.x, ++pos.y )
+    pos.y++
 })
 quay.on( '<left>', event => {
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x-=MOVESPEED, pos.y )
+        pos.x-=MOVESPEED
         return
     }
-    starfield.setPosition( --pos.x, pos.y )
+    pos.x--
 })
 quay.on( '<right>', event => {
 
     if ( quay.pressed.has( '<shift>' ) ) {
-        starfield.setPosition( pos.x+=MOVESPEED, pos.y )
+        pos.x+=MOVESPEED
         return
     }
-    starfield.setPosition( ++pos.x, pos.y )
+    pos.x++
 })
 
 function render() {
     renderer.render( stage )
+}
+
+function renderShow() {
+    fieldX.innerHTML = starfield.pos.x
+    fieldY.innerHTML = starfield.pos.y
+    starX.innerHTML = star.position.x
+    starY.innerHTML = star.position.y
 }
 
 function init() {
@@ -98,6 +111,7 @@ function init() {
     })
 
     window.star = starfield.stars[ 0 ]
+    window.star.setPosition( 0, 0 )
 
     stage.addChild( starfield.container )
 
@@ -110,8 +124,10 @@ let renderTick = new Tick()
         stats.begin()
         memstats.begin()
 
+        starfield.setPosition( pos.x, pos.y )
         starfield.update()
         render()
+        renderShow()
 
         memstats.end()
         stats.end()

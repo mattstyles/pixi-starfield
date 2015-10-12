@@ -34,28 +34,33 @@ var pos = window.pos = new Pixi.Point( 0, 0 )
 
 // Linearly move the starfield to test stuff
 quay.on( '<up>', event => {
-    starfield.setPosition( pos.x, pos.y-- )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x, pos.y-=MOVESPEED )
+        return
     }
+    starfield.setPosition( pos.x, --pos.y )
 })
 quay.on( '<down>', event => {
-    starfield.setPosition( pos.x, pos.y++ )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x, pos.y+=MOVESPEED )
+        return
     }
+    starfield.setPosition( pos.x, ++pos.y )
 })
 quay.on( '<left>', event => {
-    starfield.setPosition( pos.x--, pos.y )
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x-=MOVESPEED, pos.y )
+        return
     }
+    starfield.setPosition( --pos.x, pos.y )
 })
 quay.on( '<right>', event => {
-    starfield.setPosition( pos.x++, pos.y )
+
     if ( quay.pressed.has( '<shift>' ) ) {
         starfield.setPosition( pos.x+=MOVESPEED, pos.y )
+        return
     }
+    starfield.setPosition( ++pos.x, pos.y )
 })
 
 function render() {

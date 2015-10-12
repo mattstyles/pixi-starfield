@@ -137,8 +137,17 @@ export default class Starfield {
      * @returns this
      */
     setPosition( x, y ) {
+        // Noop if new position is the same as the current position
+        if ( this.pos.x === x && this.pos.y === y ) {
+            return
+        }
+
         this.lastPos.copy( this.pos )
         this.pos.set( x, y )
+        if ( this.pos.x === this.lastPos.x ) {
+            console.log( 'same x', this.pos.x )
+        }
+
         this.container.position.set( -this.pos.x + this.opts.size.width / 2, -this.pos.y + this.opts.size.height / 2 )
         this.bounds = this._getBounds()
 
@@ -180,8 +189,8 @@ export default class Starfield {
 
         // Translate forward or backward by bounding width based on direction moved
         return this.lastPos[ dim ] > this.pos[ dim ]
-            ? position += this.bounds.width
-            : position -= this.bounds.width
+            ? position -= this.bounds.width
+            : position += this.bounds.width
     }
 
     /**

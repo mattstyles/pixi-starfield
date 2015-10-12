@@ -15,7 +15,10 @@
   },
   "author": "Matt Styles",
   "repository": "git://github.com/mattstyles/pixi-starfield.git",
-  "license": "WTFPL",
+  "license": "ISC",
+  "peerDependencies": {
+      "pixi.js": "^3.0.7"
+  },
   "dependencies": {
     "bezier-easing": "^1.1.1",
     "fast-simplex-noise": "^1.0.0",
@@ -23,7 +26,6 @@
     "lodash.isplainobject": "^3.2.0",
     "lodash.random": "^3.0.1",
     "mathutil": "^0.1.0",
-    "pixi.js": "^3.0.7",
     "xtend": "^4.0.0"
   },
   "devDependencies": {

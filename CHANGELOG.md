@@ -1,4 +1,4 @@
-#
+# 0.5.0
 
 * _fix_ non-present schema now returns null instead of throwing
 * _fix_ out-of-bounds translation and banding of stars at higher movement speeds

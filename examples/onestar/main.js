@@ -22,7 +22,7 @@ const renderer = Pixi.autoDetectRenderer( WIDTH, HEIGHT, {
 import CONSTANTS from 'core/constants'
 import Starfield from '../../lib'
 
-const MOVESPEED = 6
+const MOVESPEED = 10
 
 window.renderer = renderer
 window.Pixi = Pixi
@@ -91,6 +91,8 @@ function init() {
             height: HEIGHT
         }
     })
+
+    window.star = starfield.stars[ 0 ]
 
     stage.addChild( starfield.container )
 

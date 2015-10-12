@@ -22,8 +22,8 @@ export default class Starfield {
             /**
              * Size of rendering area
              * @type <Object>
-             *   @prop width <Integer> pixel width of rendering area
-             *   @prop height <Integer> pixel height of rendering area
+             *   @prop width <Integer> _def 500_ pixel width of rendering area
+             *   @prop height <Integer> _def 500_ pixel height of rendering area
              */
             size: {
                 width: 500,
@@ -32,14 +32,14 @@ export default class Starfield {
 
             /**
              * Star density i.e. number of stars in current bounding area
-             * @type <Integer>
+             * @type <Integer> _def 500_
              */
             density: 500,
 
             /**
              * Pixi filters to apply to the container, applying at the star level
              * is, like, well too slow man
-             * @type <Array|Pixi.filters>
+             * @type <Array|Pixi.filters> _def null_
              */
             filters: null,
 
@@ -50,7 +50,7 @@ export default class Starfield {
              * to force rendering into a regular container if you need tinting
              * at any point in the lifecycle.
              * Similarly, if the density changes use a regular container.
-             * @type <Boolean>
+             * @type <Boolean> _def false_
              */
             forceContainer: false
         }, opts )
@@ -116,11 +116,17 @@ export default class Starfield {
      * @returns <Pixi.Rectangle>
      */
     _getBounds() {
+        // return new Pixi.Rectangle(
+        //     this.pos.x - this.opts.size.width + 1,
+        //     this.pos.y - this.opts.size.height + 1,
+        //     -2 + this.opts.size.width * 2,
+        //     -2 + this.opts.size.height * 2
+        // )
         return new Pixi.Rectangle(
-            this.pos.x - this.opts.size.width + 1,
-            this.pos.y - this.opts.size.height + 1,
-            -2 + this.opts.size.width * 2,
-            -2 + this.opts.size.height * 2
+            this.pos.x - this.opts.size.width,
+            this.pos.y - this.opts.size.height,
+            this.opts.size.width * 2,
+            this.opts.size.height * 2
         )
     }
 
@@ -166,23 +172,31 @@ export default class Starfield {
         return star
     }
 
+    _translateDimension( dim, position ) {
+        // Quick check equality i.e. this dimension has not moved
+        if ( this.lastPos[ dim ] === this.pos[ dim ] ) {
+            return position
+        }
+
+        // Translate forward or backward by bounding width based on direction moved
+        return this.lastPos[ dim ] > this.pos[ dim ]
+            ? position += this.bounds.width
+            : position -= this.bounds.width
+    }
+
     /**
      * Update should manage stars leaving the bounds and using those leavers as
      * those stars joining to maintain density whilst world coords move
      */
     update() {
+
         this.stars.forEach( star => {
             let starpos = star.getPosition()
             if ( !this.bounds.contains( ...starpos ) ) {
-                let diffX = this.pos.x - starpos[ 0 ]
-                let diffY = this.pos.y - starpos[ 1 ]
-
                 // Set position if the difference is outside the bounds
                 star.setPosition(
-                    // Restricting the diff to stop stars from being out of bounds
-                    // one side and merely flipping out of bounds the other side
-                    Math.abs( diffX ) >= this.opts.size.width ? this.pos.x + diffX * .95 : starpos[ 0 ],
-                    Math.abs( diffY ) >= this.opts.size.height ? this.pos.y + diffY * .95 : starpos[ 1 ]
+                    this._translateDimension( 'x', starpos[ 0 ] ),
+                    this._translateDimension( 'y', starpos[ 1 ] )
                 )
             }
         })

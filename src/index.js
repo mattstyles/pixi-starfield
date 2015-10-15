@@ -46,6 +46,14 @@ export default class Starfield {
             },
 
             /**
+             * If set to true then the starfield container will not move, although
+             * its position will continue to be updated. Useful when the parent
+             * container that the starfield is appended to is moving.
+             * @type <Boolean> _def false_
+             */
+            static: false,
+
+            /**
              * Star density i.e. number of stars in current bounding area
              * @type <Integer> _def 500_
              */
@@ -161,9 +169,11 @@ export default class Starfield {
 
         this.lastPos.copy( this.pos )
         this.pos.set( x, y )
-
-        this.container.position.set( -this.pos.x + this.opts.offset.x, -this.pos.y + this.opts.offset.y )
         this.bounds = this._getBounds()
+
+        if ( !this.opts.static ) {
+            this.container.position.set( -this.pos.x + this.opts.offset.x, -this.pos.y + this.opts.offset.y )
+        }
 
         return this
     }

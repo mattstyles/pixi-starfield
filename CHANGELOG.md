@@ -1,3 +1,7 @@
+# 0.6.0
+
+* _add_ set main container offset
+
 # 0.5.0
 
 * _fix_ non-present schema now returns null instead of throwing

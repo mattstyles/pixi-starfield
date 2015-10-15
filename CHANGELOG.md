@@ -1,3 +1,7 @@
+# 0.7.0
+
+* _add_ static option to keep container still
+
 # 0.6.0
 
 * _add_ set main container offset

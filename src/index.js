@@ -31,6 +31,21 @@ export default class Starfield {
             },
 
             /**
+             * Sets the container offset
+             * Some containers will need offsetting to move the origin, largely
+             * it depends on the movement of whichever container this one gets
+             * added to.
+             * Defaults to half the width and height to centralise the origin
+             * @type <Object>
+             *   @param x <Integer>
+             *   @param y <Integer>
+             */
+            offset: {
+                x: 250,
+                y: 250
+            },
+
+            /**
              * Star density i.e. number of stars in current bounding area
              * @type <Integer> _def 500_
              */
@@ -56,6 +71,11 @@ export default class Starfield {
         }, opts )
 
         this.schema = new Schema( opts.schema || {} )
+
+        if ( !opts.offset ) {
+            this.opts.offset.x = this.opts.size.width / 2
+            this.opts.offset.y = this.opts.size.height / 2
+        }
 
         // If colour values are required then use a regular ole container,
         // otherwise hit the turbo boost. Note that there is currently no mechanism
@@ -142,7 +162,7 @@ export default class Starfield {
         this.lastPos.copy( this.pos )
         this.pos.set( x, y )
 
-        this.container.position.set( -this.pos.x + this.opts.size.width / 2, -this.pos.y + this.opts.size.height / 2 )
+        this.container.position.set( -this.pos.x + this.opts.offset.x, -this.pos.y + this.opts.offset.y )
         this.bounds = this._getBounds()
 
         return this

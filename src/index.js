@@ -215,16 +215,16 @@ export default class Starfield {
      * those stars joining to maintain density whilst world coords move
      */
     update() {
-
-        this.stars.forEach( star => {
+        for ( var i = 0; i < this.stars.length; i ++ ) {
+            let star = this.stars[ i ]
             let starpos = star.getPosition()
-            if ( !this.bounds.contains( ...starpos ) ) {
+            if ( !this.bounds.contains( starpos[ 0 ], starpos[ 1 ] ) ) {
                 // Set position if the difference is outside the bounds
                 star.setPosition(
                     this._translateDimension( 'x', starpos[ 0 ] ),
                     this._translateDimension( 'y', starpos[ 1 ] )
                 )
             }
-        })
+        }
     }
 }

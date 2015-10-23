@@ -1,6 +1,15 @@
-# 0.6.0
+
+#
 
 * _update_ for loop instead of for each
+
+# 0.7.0
+
+* _add_ static option to keep container still
+
+# 0.6.0
+
+* _add_ set main container offset
 
 # 0.5.0
 

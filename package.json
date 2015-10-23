@@ -1,10 +1,11 @@
 {
   "name": "pixi-starfield",
-  "version": "0.6.0",
+  "version": "0.7.1",
   "description": "Starfield render using pixi",
   "main": "lib/index.js",
   "scripts": {
     "prepack": "npm run build",
+    "prepublish": "npm run build",
     "clean": "rm -rf lib && mkdir lib",
     "prebuild": "npm run clean",
     "build": "babel src --out-dir lib",
